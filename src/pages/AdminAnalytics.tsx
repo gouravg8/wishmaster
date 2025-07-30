@@ -21,10 +21,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { 
-  TrendingUp, 
-  Users, 
-  IndianRupee, 
+import {
+  TrendingUp,
+  Users,
+  IndianRupee,
   Target,
   Calendar,
   BarChart3,
@@ -39,6 +39,7 @@ import {
   Filter,
   Clock
 } from "lucide-react";
+import AnalyticCard from "@/components/custom/AnalyticCard";
 
 interface TeamLead {
   id: string;
@@ -96,7 +97,7 @@ const mockTeamLeads: TeamLead[] = [
     wishmasterCount: 3,
     totalReferrals: 9,
     totalEarnings: 50000,
-    region: "North Delhi",
+    region: "NDL",
     joiningDate: "Oct 2024",
     completionRate: 77.8,
     avgTimeToComplete: 12,
@@ -104,7 +105,7 @@ const mockTeamLeads: TeamLead[] = [
   },
   {
     id: "tl2",
-    name: "Kavita Singh", 
+    name: "Kavita Singh",
     phone: "9000000002",
     wishmasterCount: 2,
     totalReferrals: 6,
@@ -130,7 +131,7 @@ const mockWishmasters: Wishmaster[] = [
     avgTimeToComplete: 10,
     teamLeadId: "tl1",
     teamLeadName: "Arjun Mehta",
-    region: "North Delhi"
+    region: "NDL"
   },
   {
     id: "wm2",
@@ -143,8 +144,8 @@ const mockWishmasters: Wishmaster[] = [
     completionRate: 75.0,
     avgTimeToComplete: 8,
     teamLeadId: "tl1",
-    teamLeadName: "Arjun Mehta", 
-    region: "North Delhi"
+    teamLeadName: "Arjun Mehta",
+    region: "NDL"
   },
   {
     id: "wm3",
@@ -158,7 +159,7 @@ const mockWishmasters: Wishmaster[] = [
     avgTimeToComplete: 18,
     teamLeadId: "tl1",
     teamLeadName: "Arjun Mehta",
-    region: "North Delhi"
+    region: "NDL"
   },
   {
     id: "wm4",
@@ -172,7 +173,7 @@ const mockWishmasters: Wishmaster[] = [
     avgTimeToComplete: 7,
     teamLeadId: "tl2",
     teamLeadName: "Kavita Singh",
-    region: "South Delhi"
+    region: "SDL"
   },
   {
     id: "wm5",
@@ -186,13 +187,13 @@ const mockWishmasters: Wishmaster[] = [
     avgTimeToComplete: 20,
     teamLeadId: "tl2",
     teamLeadName: "Kavita Singh",
-    region: "South Delhi"
+    region: "SDL"
   }
 ];
 
 const mockRegionPerformance: RegionPerformance[] = [
   {
-    region: "North Delhi",
+    region: "NDL",
     teamLeads: 1,
     wishmasters: 3,
     totalReferrals: 9,
@@ -202,7 +203,7 @@ const mockRegionPerformance: RegionPerformance[] = [
     avgTimeToComplete: 12
   },
   {
-    region: "South Delhi",
+    region: "NDL",
     teamLeads: 1,
     wishmasters: 2,
     totalReferrals: 6,
@@ -237,38 +238,38 @@ const AdminAnalytics = () => {
   const avgTimeToComplete = mockWishmasters.reduce((sum, wm) => sum + wm.avgTimeToComplete, 0) / totalWishmasters;
 
   // Filter data based on selections
-  const filteredWishmasters = selectedTeamLead 
+  const filteredWishmasters = selectedTeamLead
     ? mockWishmasters.filter(wm => wm.teamLeadId === selectedTeamLead)
     : mockWishmasters;
 
   const filteredRegions = selectedTeamLead
     ? mockRegionPerformance.filter(rp => {
-        const teamLead = mockTeamLeads.find(tl => tl.id === selectedTeamLead);
-        return teamLead && rp.region === teamLead.region;
-      })
+      const teamLead = mockTeamLeads.find(tl => tl.id === selectedTeamLead);
+      return teamLead && rp.region === teamLead.region;
+    })
     : mockRegionPerformance;
 
   return (
     <div className="min-h-screen bg-background relative">
       {/* Sidebar */}
       <AppSidebar open={sidebarOpen} onOpenChange={setSidebarOpen} isAdmin={true} />
-      
+
       {/* Overlay */}
       {sidebarOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 z-40"
           onClick={() => setSidebarOpen(false)}
         />
       )}
-      
+
       {/* Main Content */}
       <div className="relative z-10">
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Button 
-              variant="ghost" 
-              size="sm" 
+            <Button
+              variant="ghost"
+              size="sm"
               className="text-white hover:bg-white/10"
               onClick={() => setSidebarOpen(true)}
             >
@@ -284,9 +285,20 @@ const AdminAnalytics = () => {
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
+            <Download className="h-5 w-5" />
+          </Button>
+          <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
+            <Settings className="h-5 w-5" />
+          </Button>
+        </div>
+
+
+
+        <div className="p-4 space-y-6">
+          <div className="flex items-center justify-end gap-2">
             <Select value={timeRange} onValueChange={setTimeRange}>
-              <SelectTrigger className="w-32 bg-white/10 border-white/20 text-white">
+              <SelectTrigger className="max-w-40">
                 <Calendar className="h-4 w-4 mr-2" />
                 <SelectValue />
               </SelectTrigger>
@@ -296,16 +308,8 @@ const AdminAnalytics = () => {
                 <SelectItem value="7d">Last 7 Days</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
-              <Download className="h-5 w-5" />
-            </Button>
-            <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
-              <Settings className="h-5 w-5" />
-            </Button>
           </div>
-        </div>
 
-        <div className="p-4 space-y-6">
           {/* Team Lead Selector */}
           <TeamLeadSelector
             teamLeads={mockTeamLeads}
@@ -328,89 +332,50 @@ const AdminAnalytics = () => {
 
           {/* System Overview Cards */}
           <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-blue-100 rounded-lg">
-                    <Building className="h-5 w-5 text-blue-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Team Leads</p>
-                    <p className="text-2xl font-bold text-blue-600">{totalTeamLeads}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <AnalyticCard
+              title="Team Leads"
+              icon={<Building />}
+              color="blue"
+              value={totalTeamLeads}
+            />
 
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-purple-100 rounded-lg">
-                    <Users className="h-5 w-5 text-purple-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Wishmasters</p>
-                    <p className="text-2xl font-bold text-purple-600">{totalWishmasters}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <AnalyticCard
+              title="Wishmasters"
+              icon={<Users />}
+              color="purple"
+              value={totalWishmasters}
+            />
 
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-green-100 rounded-lg">
-                    <Target className="h-5 w-5 text-green-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Referrals</p>
-                    <p className="text-2xl font-bold text-green-600">{totalReferrals}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <AnalyticCard
+              title="Referrals"
+              icon={<Target />}
+              color="green"
+              value={totalReferrals}
+            />
 
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-orange-100 rounded-lg">
-                    <IndianRupee className="h-5 w-5 text-orange-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Total Earnings</p>
-                    <p className="text-2xl font-bold text-orange-600">₹{totalEarnings.toLocaleString()}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <AnalyticCard
+              title="Total Earnings"
+              icon={<IndianRupee />}
+              color="orange"
+              value={totalEarnings?.toLocaleString()}
+              prefix="₹"
+            />
 
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-cyan-100 rounded-lg">
-                    <TrendingUp className="h-5 w-5 text-cyan-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Completion Rate</p>
-                    <p className="text-2xl font-bold text-cyan-600">{Math.round(avgCompletionRate)}%</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <AnalyticCard
+              title="Completion Rate"
+              icon={<TrendingUp />}
+              color="cyan"
+              value={Math.round(avgCompletionRate)}
+              suffix="%"
+            />
 
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-pink-100 rounded-lg">
-                    <Clock className="h-5 w-5 text-pink-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Avg Time</p>
-                    <p className="text-2xl font-bold text-pink-600">{Math.round(avgTimeToComplete)}d</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <AnalyticCard
+              title="Avg Time"
+              icon={<Clock />}
+              color="pink"
+              value={Math.round(avgTimeToComplete)}
+              suffix="d"
+            />
           </div>
 
           {/* Analytics Tabs */}
@@ -451,9 +416,8 @@ const AdminAnalytics = () => {
                         .map((tl, index) => (
                           <div key={tl.id} className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
-                              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold ${
-                                index === 0 ? 'bg-yellow-500' : index === 1 ? 'bg-gray-400' : 'bg-orange-500'
-                              }`}>
+                              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold ${index === 0 ? 'bg-yellow-500' : index === 1 ? 'bg-gray-400' : 'bg-orange-500'
+                                }`}>
                                 {index + 1}
                               </div>
                               <div>
@@ -486,9 +450,8 @@ const AdminAnalytics = () => {
                         .map((wm, index) => (
                           <div key={wm.id} className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
-                              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold ${
-                                index === 0 ? 'bg-yellow-500' : index === 1 ? 'bg-gray-400' : 'bg-orange-500'
-                              }`}>
+                              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold ${index === 0 ? 'bg-yellow-500' : index === 1 ? 'bg-gray-400' : 'bg-orange-500'
+                                }`}>
                                 {index + 1}
                               </div>
                               <div>
