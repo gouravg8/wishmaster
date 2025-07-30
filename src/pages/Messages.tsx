@@ -3,15 +3,15 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AppSidebar } from "@/components/AppSidebar";
-import { 
-  Menu, 
-  Bell, 
-  Settings, 
-  CheckCircle, 
-  Clock, 
-  Gift, 
+import {
+  Menu,
+  Bell,
+  Settings,
+  CheckCircle,
+  Clock,
+  Gift,
   Lightbulb,
-  MessageSquare 
+  MessageSquare
 } from "lucide-react";
 
 const Messages = () => {
@@ -30,7 +30,7 @@ const Messages = () => {
       category: "success"
     },
     {
-      id: "2", 
+      id: "2",
       type: "progress",
       icon: Clock,
       title: "Referral Update - First Delivery Started",
@@ -129,8 +129,8 @@ const Messages = () => {
     }
   };
 
-  const filteredMessages = activeTab === "all" 
-    ? messages 
+  const filteredMessages = activeTab === "all"
+    ? messages
     : messages.filter(msg => msg.category === activeTab);
 
   const unreadCount = messages.filter(msg => !msg.isRead).length;
@@ -139,23 +139,23 @@ const Messages = () => {
     <div className="min-h-screen bg-background relative">
       {/* Sidebar */}
       <AppSidebar open={sidebarOpen} onOpenChange={setSidebarOpen} />
-      
+
       {/* Overlay */}
       {sidebarOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 z-40"
           onClick={() => setSidebarOpen(false)}
         />
       )}
-      
+
       {/* Main Content */}
       <div className="relative z-10">
         {/* Header */}
         <div className="bg-primary text-primary-foreground p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Button 
-              variant="ghost" 
-              size="sm" 
+            <Button
+              variant="ghost"
+              size="sm"
               className="text-primary-foreground hover:bg-primary-foreground/10"
               onClick={() => setSidebarOpen(true)}
             >
@@ -172,9 +172,9 @@ const Messages = () => {
             <Button variant="ghost" size="sm" className="text-primary-foreground hover:bg-primary-foreground/10">
               <Bell className="h-5 w-5" />
             </Button>
-            <Button 
-              variant="ghost" 
-              size="sm" 
+            <Button
+              variant="ghost"
+              size="sm"
               className="text-primary-foreground hover:bg-primary-foreground/10"
             >
               <Settings className="h-5 w-5" />
@@ -196,24 +196,22 @@ const Messages = () => {
           </div>
 
           {/* Filter Tabs */}
-          <div className="flex gap-1 mb-6 p-1 bg-gray-100 rounded-lg">
+          <div className="flex overflow-x-scroll gap-1 mb-6 p-1 bg-gray-100 rounded-lg">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                  activeTab === tab.id
+                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === tab.id
                     ? "bg-white text-primary shadow-sm"
                     : "text-gray-600 hover:text-gray-900"
-                }`}
+                  }`}
               >
                 <span>{tab.label}</span>
                 {tab.count > 0 && (
-                  <Badge 
-                    variant="secondary" 
-                    className={`text-xs ${
-                      activeTab === tab.id ? "bg-red-100 text-red-600" : "bg-gray-200 text-gray-600"
-                    }`}
+                  <Badge
+                    variant="secondary"
+                    className={`text-xs ${activeTab === tab.id ? "bg-red-100 text-red-600" : "bg-gray-200 text-gray-600"
+                      }`}
                   >
                     {tab.count}
                   </Badge>
@@ -227,20 +225,19 @@ const Messages = () => {
             {filteredMessages.map((message) => {
               const IconComponent = getMessageIcon(message.type);
               const styles = getMessageStyles(message.type);
-              
+
               return (
-                <Card 
-                  key={message.id} 
-                  className={`border-l-4 ${styles.borderColor} ${
-                    !message.isRead ? "bg-blue-50/50" : ""
-                  }`}
+                <Card
+                  key={message.id}
+                  className={`border-l-4 ${styles.borderColor} ${!message.isRead ? "bg-blue-50/50" : ""
+                    }`}
                 >
                   <div className="p-4">
                     <div className="flex items-start gap-4">
                       <div className={`p-2 rounded-lg ${styles.iconBg} mt-1`}>
                         <IconComponent className={`h-5 w-5 ${styles.iconColor}`} />
                       </div>
-                      
+
                       <div className="flex-1 space-y-2">
                         <div className="flex items-center justify-between">
                           <h3 className="font-semibold text-foreground">{message.title}</h3>
@@ -251,7 +248,7 @@ const Messages = () => {
                             )}
                           </div>
                         </div>
-                        
+
                         <p className="text-sm text-muted-foreground leading-relaxed">
                           {message.description}
                         </p>
