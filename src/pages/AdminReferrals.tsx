@@ -93,7 +93,7 @@ const mockTeamLeads: TeamLead[] = [
     wishmasterCount: 3,
     totalReferrals: 9,
     totalEarnings: 50000,
-    region: "North Delhi",
+    region: "NDL",
     joiningDate: "Oct 2024"
   },
   {
@@ -103,7 +103,7 @@ const mockTeamLeads: TeamLead[] = [
     wishmasterCount: 2,
     totalReferrals: 6,
     totalEarnings: 35000,
-    region: "South Delhi",
+    region: "NDL",
     joiningDate: "Sep 2024"
   }
 ];

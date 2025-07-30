@@ -72,7 +72,7 @@ const Login = () => {
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="w-12 h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center font-bold text-xl">
-              F
+              W
             </div>
             <h1 className="text-3xl font-bold text-gray-900">Referral Portal</h1>
           </div>

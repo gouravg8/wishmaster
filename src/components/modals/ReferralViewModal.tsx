@@ -29,7 +29,7 @@ export const ReferralViewModal = ({ open, onOpenChange, referral }: ReferralView
   const getStatusLabel = (status: string) => {
     const statusMap = {
       submitted: "Submitted",
-      app_downloaded: "App Downloaded", 
+      app_downloaded: "App Downloaded",
       onboarding: "Onboarding",
       first_delivery: "First Delivery",
       completed: "Completed"
@@ -56,16 +56,13 @@ export const ReferralViewModal = ({ open, onOpenChange, referral }: ReferralView
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md mx-auto bg-white border shadow-xl">
+      <DialogContent className="sm:max-w-[425px] mx-auto bg-white border shadow-xl">
         <DialogHeader>
           <DialogTitle className="flex items-center justify-between text-lg font-semibold">
             Referral Details
-            <Button variant="ghost" size="sm" onClick={() => onOpenChange(false)}>
-              <X className="h-4 w-4" />
-            </Button>
           </DialogTitle>
         </DialogHeader>
-        
+
         <div className="space-y-4 py-4">
           <div>
             <label className="text-sm font-medium text-gray-700">Referee Name</label>

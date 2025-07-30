@@ -61,7 +61,7 @@ export const PotentialEarningsModal = ({ open, onOpenChange }: PotentialEarnings
                 
                 <div className="flex items-center gap-2 text-sm">
                   <div className="w-2 h-2 bg-warning rounded-full"></div>
-                  <span className="text-warning">Started delivering</span>
+                  <span className="text-warning">Delivering</span>
                   <span className="text-muted-foreground">• Needs to complete Step 5 criteria</span>
                 </div>
               </CardContent>

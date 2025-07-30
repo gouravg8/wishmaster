@@ -64,14 +64,11 @@ export const ReferralEditModal = ({ open, onOpenChange, referral, onSave }: Refe
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md mx-auto bg-white border shadow-xl">
+      <DialogContent className="w-11/12 mx-auto bg-white border shadow-xl">
         <DialogHeader>
           <DialogTitle className="flex items-center justify-between text-lg font-semibold">
             Edit Referral Details
-            <Button variant="ghost" size="sm" onClick={() => onOpenChange(false)}>
-              <X className="h-4 w-4" />
-            </Button>
-          </DialogTitle>
+         </DialogTitle>
         </DialogHeader>
         
         <div className="space-y-4 py-4">

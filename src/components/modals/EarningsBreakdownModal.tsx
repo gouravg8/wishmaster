@@ -60,7 +60,7 @@ export const EarningsBreakdownModal = ({ open, onOpenChange }: EarningsBreakdown
               <div className="flex items-center justify-between p-3 bg-warning/5 rounded-lg border border-warning/20">
                 <div className="flex items-center gap-3">
                   <span className="font-medium">Deepak Patel</span>
-                  <Badge className="bg-warning text-warning-foreground">Started Delivering</Badge>
+                  <Badge className="bg-warning text-warning-foreground">Delivering</Badge>
                 </div>
                 <div className="text-right">
                   <p className="font-semibold text-warning">₹5,000</p>

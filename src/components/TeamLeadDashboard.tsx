@@ -27,7 +27,7 @@ interface Referral {
   id: string;
   name: string;
   phone: string;
-  status: "Completed" | "Started Delivering" | "Onboarding";
+  status: "Completed" | "Delivering" | "Onboarding";
   progress: number;
   amount: number;
   location?: string;
@@ -95,7 +95,7 @@ const mockAllReferrals: Referral[] = [
     id: "2", 
     name: "Deepak Patel",
     phone: "9876543212",
-    status: "Started Delivering",
+    status: "Delivering",
     progress: 80,
     amount: 5000,
     location: "Kirana",
@@ -143,7 +143,7 @@ const mockAllReferrals: Referral[] = [
     id: "6",
     name: "Anjali Singh",
     phone: "9876543216",
-    status: "Started Delivering",
+    status: "Delivering",
     progress: 80,
     amount: 5000,
     location: "TrueFlex",
@@ -217,7 +217,7 @@ export const TeamLeadDashboard = () => {
     switch (status) {
       case "Completed":
         return "bg-success text-success-foreground";
-      case "Started Delivering":
+      case "Delivering":
         return "bg-warning text-warning-foreground";
       case "Onboarding":
         return "bg-secondary text-secondary-foreground";

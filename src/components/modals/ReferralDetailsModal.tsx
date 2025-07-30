@@ -9,7 +9,7 @@ interface Referral {
   id: string;
   name: string;
   phone: string;
-  status: "Completed" | "Started Delivering" | "Onboarding";
+  status: "Completed" | "Delivering" | "Onboarding";
   progress: number;
   amount: number;
   location?: string;
@@ -39,9 +39,6 @@ export const ReferralDetailsModal = ({ open, onOpenChange, referral }: ReferralD
         <DialogHeader>
           <DialogTitle className="flex items-center justify-between">
             Referral Details
-            <Button variant="ghost" size="sm" onClick={() => onOpenChange(false)}>
-              <X className="h-4 w-4" />
-            </Button>
           </DialogTitle>
         </DialogHeader>
         

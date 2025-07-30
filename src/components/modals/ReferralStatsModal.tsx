@@ -50,7 +50,7 @@ export const ReferralStatsModal = ({ open, onOpenChange }: ReferralStatsModalPro
                 { label: "Submitted", count: 0, color: "text-muted-foreground" },
                 { label: "App Downloaded", count: 0, color: "text-muted-foreground" },
                 { label: "Onboarding", count: 1, color: "text-secondary-foreground" },
-                { label: "Started Delivering", count: 1, color: "text-warning" },
+                { label: "Delivering", count: 1, color: "text-warning" },
                 { label: "Completed", count: 1, color: "text-success" },
               ].map((status) => (
                 <div key={status.label} className="flex items-center justify-between p-3 bg-muted/20 rounded-lg">
