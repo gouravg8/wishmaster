@@ -23,9 +23,9 @@ interface WishmasterSelectorProps {
   onShowAggregated?: (show: boolean) => void;
 }
 
-export const WishmasterSelector = ({ 
-  wishmasters, 
-  selectedWishmaster, 
+export const WishmasterSelector = ({
+  wishmasters,
+  selectedWishmaster,
   onWishmasterChange,
   showAggregated = false,
   onShowAggregated
@@ -90,25 +90,27 @@ export const WishmasterSelector = ({
               </div>
               <p className="text-sm text-muted-foreground">Manage and monitor your Wishmaster team</p>
             </div>
-            
+
             <div className="flex gap-2 w-full sm:w-auto">
               {onShowAggregated && (
                 <Button
                   variant={showAggregated ? "default" : "outline"}
                   size="sm"
-                  onClick={() => onShowAggregated(!showAggregated)}
-                  className={`flex-1 sm:flex-none ${
-                    showAggregated 
-                      ? "bg-purple-600 hover:bg-purple-700 text-white" 
-                      : "border-purple-300 text-purple-600 hover:bg-purple-50"
-                  }`}
+                  onClick={() => {
+                    onShowAggregated(!showAggregated)
+                    onWishmasterChange("");
+                  }}
+                  className={`flex-1 sm:flex-none ${showAggregated
+                    ? "bg-purple-600 hover:text-white hover:bg-purple-700 text-white"
+                    : "border-purple-300 hover:text-purple-600 text-purple-600 hover:bg-purple-50"
+                    }`}
                 >
                   🏆 All Team Data
                 </Button>
               )}
-              
-              <Select 
-                value={selectedWishmaster} 
+
+              <Select
+                value={selectedWishmaster || ""}
                 onValueChange={onWishmasterChange}
                 disabled={showAggregated}
               >
@@ -116,7 +118,10 @@ export const WishmasterSelector = ({
                   <SelectValue placeholder="Choose Wishmaster" />
                 </SelectTrigger>
                 <SelectContent>
-                  {wishmasters.map((wishmaster) => (
+                  <SelectItem value="all" disabled>
+                    <span className="text-muted-background">Choose Wishmaster</span>
+                  </SelectItem>
+                  {wishmasters?.map((wishmaster) => (
                     <SelectItem key={wishmaster.id} value={wishmaster.id}>
                       <div className="flex items-center gap-2">
                         <span>{wishmaster.name}</span>
@@ -130,7 +135,7 @@ export const WishmasterSelector = ({
               </Select>
             </div>
           </div>
-          
+
           {!showAggregated && selectedWishmaster && (
             <div className="mt-3 pt-3 border-t">
               {(() => {

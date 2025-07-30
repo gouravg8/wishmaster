@@ -24,9 +24,9 @@ interface TeamLeadSelectorProps {
   onShowSystemWide?: (show: boolean) => void;
 }
 
-export const TeamLeadSelector = ({ 
-  teamLeads, 
-  selectedTeamLead, 
+export const TeamLeadSelector = ({
+  teamLeads,
+  selectedTeamLead,
   onTeamLeadChange,
   showSystemWide = false,
   onShowSystemWide
@@ -91,25 +91,27 @@ export const TeamLeadSelector = ({
               </div>
               <p className="text-sm text-muted-foreground">Monitor and manage all Team Leads and their teams</p>
             </div>
-            
-            <div className="flex gap-2 w-full sm:w-auto">
+
+            <div className="flex flex-col md:flex-row gap-2 w-full sm:w-auto">
               {onShowSystemWide && (
                 <Button
                   variant={showSystemWide ? "default" : "outline"}
                   size="sm"
-                  onClick={() => onShowSystemWide(!showSystemWide)}
-                  className={`flex-1 sm:flex-none ${
-                    showSystemWide 
-                      ? "bg-emerald-600 hover:bg-emerald-700 text-white" 
-                      : "border-emerald-300 text-emerald-600 hover:bg-emerald-50"
-                  }`}
+                  onClick={() => {
+                    onShowSystemWide(!showSystemWide);
+                    onTeamLeadChange("");
+                  }}
+                  className={`flex-1 sm:flex-none py-2 ${showSystemWide
+                      ? "bg-emerald-600 hover:bg-emerald-700 text-white"
+                      : "border-emerald-300 hover:bg-white hover:text-emerald-600 bg-white text-emerald-600 "
+                    }`}
                 >
                   🌐 System-wide View
                 </Button>
               )}
-              
-              <Select 
-                value={selectedTeamLead} 
+
+              <Select
+                value={selectedTeamLead || ""}
                 onValueChange={onTeamLeadChange}
                 disabled={showSystemWide}
               >
@@ -117,6 +119,9 @@ export const TeamLeadSelector = ({
                   <SelectValue placeholder="Choose Team Lead" />
                 </SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="all" disabled>
+                    <span className="text-muted-background">Choose Team Lead</span>
+                  </SelectItem>
                   {teamLeads.map((teamLead) => (
                     <SelectItem key={teamLead.id} value={teamLead.id}>
                       <div className="flex items-center gap-2">
@@ -134,7 +139,7 @@ export const TeamLeadSelector = ({
               </Select>
             </div>
           </div>
-          
+
           {!showSystemWide && selectedTeamLead && (
             <div className="mt-3 pt-3 border-t">
               {(() => {

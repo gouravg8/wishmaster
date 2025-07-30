@@ -26,7 +26,7 @@ interface Referral {
   id: string;
   name: string;
   phone: string;
-  status: "Completed" | "Started Delivering" | "Onboarding";
+  status: "Completed" | "Delivering" | "Onboarding";
   progress: number;
   amount: number;
   location?: string;
@@ -48,7 +48,7 @@ const mockReferrals: Referral[] = [
     id: "2", 
     name: "Deepak Patel",
     phone: "9876543212",
-    status: "Started Delivering",
+    status: "Delivering",
     progress: 80,
     amount: 5000,
     location: "Kirana",
@@ -84,7 +84,7 @@ export const WishmasterDashboard = () => {
     switch (status) {
       case "Completed":
         return "bg-success text-success-foreground";
-      case "Started Delivering":
+      case "Delivering":
         return "bg-warning text-warning-foreground";
       case "Onboarding":
         return "bg-secondary text-secondary-foreground";
