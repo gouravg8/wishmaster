@@ -240,7 +240,7 @@ export const TeamLeadDashboard = () => {
       )}
       
       {/* Main Content */}
-      <div className="relative z-10">
+      <div className="relative z-10 ">
         {/* Header - Team Lead Specific Styling */}
         <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -278,7 +278,7 @@ export const TeamLeadDashboard = () => {
         </div>
 
         {/* Dashboard Content */}
-        <div className="p-4 space-y-4">
+        <div className="space-y-4 container mx-auto p-4 max-w-6xl">
           {/* Wishmaster Selector */}
           <WishmasterSelector
             wishmasters={mockWishmasters}
@@ -289,7 +289,7 @@ export const TeamLeadDashboard = () => {
           />
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 ">
             <Card 
               className="bg-card shadow-sm cursor-pointer hover:shadow-md transition-shadow"
               onClick={() => setShowStatsModal(true)}
@@ -383,7 +383,7 @@ export const TeamLeadDashboard = () => {
           </Card>
 
           {/* Referrals Section */}
-          <div className="space-y-4">
+          <div className="space-y-4 ">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold text-foreground">
                 {showAggregated ? "All Team Referrals" : "Referrals"}
@@ -393,7 +393,7 @@ export const TeamLeadDashboard = () => {
               </p>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-3 grid grid-cols-1 md:grid-cols-2 gap-4">
               {filteredReferrals.map((referral) => (
                 <Card key={referral.id} className="bg-card shadow-sm">
                   <CardContent className="p-4">

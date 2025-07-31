@@ -12,8 +12,8 @@ import { ReferralEditModal } from "./modals/ReferralEditModal";
 import { CreateUserModal } from "./modals/CreateUserModal";
 import { BulkUploadModal } from "./modals/BulkUploadModal";
 import { ProfileSettingsModal } from "./modals/ProfileSettingsModal";
-import { 
-  Users, 
+import {
+  Users,
   Clock,
   CheckCircle,
   IndianRupee,
@@ -68,7 +68,7 @@ const mockAdminReferrals: AdminReferral[] = [
   },
   {
     id: "2",
-    refereeName: "Deepak Patel", 
+    refereeName: "Deepak Patel",
     refereePhone: "9876543212",
     referredBy: "Rahul Kumar",
     status: "first_delivery",
@@ -83,7 +83,7 @@ const mockAdminReferrals: AdminReferral[] = [
   {
     id: "3",
     refereeName: "Vikash Singh",
-    refereePhone: "9876543213", 
+    refereePhone: "9876543213",
     referredBy: "Rahul Kumar",
     status: "onboarding",
     model: "TrueFlex",
@@ -133,7 +133,7 @@ export const AdminDashboard = () => {
   const getStatusLabel = (status: string) => {
     const statusMap = {
       submitted: "Submitted",
-      app_downloaded: "App Downloaded", 
+      app_downloaded: "App Downloaded",
       onboarding: "Onboarding",
       first_delivery: "First Delivery",
       completed: "Completed"
@@ -160,8 +160,8 @@ export const AdminDashboard = () => {
 
   const filteredReferrals = referrals.filter(referral => {
     const matchesSearch = referral.refereeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         referral.refereePhone.includes(searchTerm) ||
-                         referral.referredBy.toLowerCase().includes(searchTerm.toLowerCase());
+      referral.refereePhone.includes(searchTerm) ||
+      referral.referredBy.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === "all" || referral.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
@@ -171,7 +171,7 @@ export const AdminDashboard = () => {
   };
 
   const handleSelectReferral = (id: string, checked: boolean) => {
-    setReferrals(referrals.map(r => 
+    setReferrals(referrals.map(r =>
       r.id === id ? { ...r, selected: checked } : r
     ));
   };
@@ -189,7 +189,7 @@ export const AdminDashboard = () => {
   };
 
   const handleUpdateReferral = (updatedReferral: AdminReferral) => {
-    setReferrals(referrals.map(r => 
+    setReferrals(referrals.map(r =>
       r.id === updatedReferral.id ? updatedReferral : r
     ));
     setEditModalOpen(false);
@@ -209,12 +209,12 @@ export const AdminDashboard = () => {
 
   const handleBulkStatusUpdate = (newStatus: string) => {
     const selectedIds = referrals.filter(r => r.selected).map(r => r.id);
-    const updatedReferrals = referrals.map(r => 
+    const updatedReferrals = referrals.map(r =>
       r.selected ? { ...r, status: newStatus as any, selected: false } : r
     );
-    
+
     setReferrals(updatedReferrals);
-    
+
     toast({
       title: "Status Updated",
       description: `Successfully updated ${selectedIds.length} referral(s) to ${getStatusLabel(newStatus)}`,
@@ -229,23 +229,23 @@ export const AdminDashboard = () => {
     <div className="min-h-screen bg-gray-50 relative">
       {/* Sidebar */}
       <AppSidebar open={sidebarOpen} onOpenChange={setSidebarOpen} isAdmin={true} />
-      
+
       {/* Overlay */}
       {sidebarOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 z-40"
           onClick={() => setSidebarOpen(false)}
         />
       )}
-      
+
       {/* Main Content */}
       <div className="relative z-10">
         {/* Header */}
         <div className="bg-white border-b border-gray-200 p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Button 
-              variant="ghost" 
-              size="sm" 
+            <Button
+              variant="ghost"
+              size="sm"
               className="text-gray-600 hover:bg-gray-100"
               onClick={() => setSidebarOpen(true)}
             >
@@ -259,9 +259,9 @@ export const AdminDashboard = () => {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Button 
-              variant="ghost" 
-              size="sm" 
+            <Button
+              variant="ghost"
+              size="sm"
               className="text-gray-600 hover:bg-gray-100"
               onClick={() => setProfileSettingsModalOpen(true)}
             >
@@ -346,7 +346,7 @@ export const AdminDashboard = () => {
                   className="pl-10 bg-white border-gray-300"
                 />
               </div>
-              
+
               <Select value={statusFilter} onValueChange={setStatusFilter}>
                 <SelectTrigger className="w-48 bg-white border-gray-300">
                   <SelectValue placeholder="All Status" />
@@ -363,15 +363,15 @@ export const AdminDashboard = () => {
             </div>
 
             <div className="flex gap-2">
-              <Button 
+              <Button
                 className="bg-green-600 hover:bg-green-700 text-white"
                 onClick={() => setCreateUserModalOpen(true)}
+                icon={<Plus className="h-4 w-4" />}
               >
-                <Plus className="h-4 w-4 mr-2" />
                 Create User
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="border-blue-300 text-blue-600 hover:bg-blue-50"
                 onClick={() => setBulkUploadModalOpen(true)}
               >
@@ -404,8 +404,8 @@ export const AdminDashboard = () => {
                     <SelectItem value="completed">Completed</SelectItem>
                   </SelectContent>
                 </Select>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   onClick={handleClearSelection}
                   className="border-blue-300 text-blue-600 hover:bg-blue-100"
                 >
@@ -432,7 +432,7 @@ export const AdminDashboard = () => {
                   <thead className="bg-gray-50 border-b border-gray-200">
                     <tr>
                       <th className="px-4 py-3 text-left">
-                        <Checkbox 
+                        <Checkbox
                           checked={selectedCount === referrals.length && referrals.length > 0}
                           onCheckedChange={handleSelectAll}
                         />
@@ -464,7 +464,7 @@ export const AdminDashboard = () => {
                     {filteredReferrals.map((referral) => (
                       <tr key={referral.id} className="hover:bg-gray-50">
                         <td className="px-4 py-4">
-                          <Checkbox 
+                          <Checkbox
                             checked={referral.selected || false}
                             onCheckedChange={(checked) => handleSelectReferral(referral.id, !!checked)}
                           />
@@ -529,28 +529,28 @@ export const AdminDashboard = () => {
       </div>
 
       {/* Modals */}
-      <ReferralViewModal 
+      <ReferralViewModal
         open={viewModalOpen}
         onOpenChange={setViewModalOpen}
         referral={selectedReferral}
       />
-      <ReferralEditModal 
+      <ReferralEditModal
         open={editModalOpen}
         onOpenChange={setEditModalOpen}
         referral={selectedReferral}
         onSave={handleUpdateReferral}
       />
-      <CreateUserModal 
+      <CreateUserModal
         open={createUserModalOpen}
         onOpenChange={setCreateUserModalOpen}
         onCreateUser={handleCreateUser}
       />
-      <BulkUploadModal 
+      <BulkUploadModal
         open={bulkUploadModalOpen}
         onOpenChange={setBulkUploadModalOpen}
         onUpload={handleBulkUpload}
       />
-      <ProfileSettingsModal 
+      <ProfileSettingsModal
         open={profileSettingsModalOpen}
         onOpenChange={setProfileSettingsModalOpen}
       />

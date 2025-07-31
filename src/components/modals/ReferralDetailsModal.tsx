@@ -35,7 +35,7 @@ export const ReferralDetailsModal = ({ open, onOpenChange, referral }: ReferralD
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md mx-auto max-h-[90vh] overflow-y-auto bg-white border shadow-xl">
+      <DialogContent className="max-w-md mx-auto w-11/12 rounded-md max-h-[90vh] overflow-y-auto bg-white border shadow-xl">
         <DialogHeader>
           <DialogTitle className="flex items-center justify-between">
             Referral Details
