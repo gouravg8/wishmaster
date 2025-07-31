@@ -1,9 +1,6 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-
 interface EarningsBreakdownModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -12,14 +9,11 @@ interface EarningsBreakdownModalProps {
 export const EarningsBreakdownModal = ({ open, onOpenChange }: EarningsBreakdownModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md mx-auto bg-white border shadow-xl">
+      <DialogContent className="w-11/12 rounded-md mx-auto bg-white border shadow-xl">
         <DialogHeader>
           <DialogTitle className="flex items-center justify-between">
             Earnings Breakdown
-            <Button variant="ghost" size="sm" onClick={() => onOpenChange(false)}>
-              <X className="h-4 w-4" />
-            </Button>
-          </DialogTitle>
+         </DialogTitle>
         </DialogHeader>
         
         <div className="space-y-6">

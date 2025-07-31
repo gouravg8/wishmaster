@@ -1,7 +1,5 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
-import { X } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 interface ReferralStatsModalProps {
   open: boolean;
@@ -11,16 +9,13 @@ interface ReferralStatsModalProps {
 export const ReferralStatsModal = ({ open, onOpenChange }: ReferralStatsModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md mx-auto bg-white border shadow-xl">
+      <DialogContent className="w-11/12 rounded-md mx-auto bg-white border shadow-xl">
         <DialogHeader>
           <DialogTitle className="flex items-center justify-between">
             Referral Statistics
-            <Button variant="ghost" size="sm" onClick={() => onOpenChange(false)}>
-              <X className="h-4 w-4" />
-            </Button>
           </DialogTitle>
         </DialogHeader>
-        
+
         <div className="space-y-6">
           {/* Summary */}
           <div className="grid grid-cols-2 gap-4">
@@ -31,7 +26,7 @@ export const ReferralStatsModal = ({ open, onOpenChange }: ReferralStatsModalPro
                 <p className="text-sm text-muted-foreground">All time referrals made</p>
               </CardContent>
             </Card>
-            
+
             <Card className="bg-success/10 border-success/20">
               <CardContent className="p-4 text-center">
                 <h4 className="font-semibold text-success mb-1">Completed</h4>
@@ -44,7 +39,7 @@ export const ReferralStatsModal = ({ open, onOpenChange }: ReferralStatsModalPro
           {/* Status Breakdown */}
           <div>
             <h4 className="font-semibold mb-3">Referral Status Breakdown</h4>
-            
+
             <div className="space-y-3">
               {[
                 { label: "Submitted", count: 0, color: "text-muted-foreground" },

@@ -1,8 +1,6 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { AlertTriangle, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { AlertTriangle } from "lucide-react";
 
 interface PotentialEarningsModalProps {
   open: boolean;
@@ -12,16 +10,13 @@ interface PotentialEarningsModalProps {
 export const PotentialEarningsModal = ({ open, onOpenChange }: PotentialEarningsModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md mx-auto bg-white border shadow-xl">
+      <DialogContent className="w-11/12 rounded-md mx-auto bg-white border shadow-xl">
         <DialogHeader>
           <DialogTitle className="flex items-center justify-between">
             Potential Earnings
-            <Button variant="ghost" size="sm" onClick={() => onOpenChange(false)}>
-              <X className="h-4 w-4" />
-            </Button>
           </DialogTitle>
         </DialogHeader>
-        
+
         <div className="space-y-4">
           {/* Action Required Alert */}
           <Card className="bg-warning/10 border-warning/20">
@@ -45,7 +40,7 @@ export const PotentialEarningsModal = ({ open, onOpenChange }: PotentialEarnings
           {/* Referrals Ready for Step 5 */}
           <div>
             <h4 className="font-semibold mb-3">Referrals Ready for Step 5</h4>
-            
+
             <Card className="bg-card">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-3">
@@ -58,7 +53,7 @@ export const PotentialEarningsModal = ({ open, onOpenChange }: PotentialEarnings
                     <p className="text-sm text-muted-foreground">₹5,000 already paid</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-2 text-sm">
                   <div className="w-2 h-2 bg-warning rounded-full"></div>
                   <span className="text-warning">Delivering</span>
