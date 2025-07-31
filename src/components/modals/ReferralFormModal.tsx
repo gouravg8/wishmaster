@@ -12,7 +12,7 @@ interface ReferralFormModalProps {
 }
 
 export const ReferralFormModal = ({ open, onOpenChange }: ReferralFormModalProps) => {
-  const [selectedModel, setSelectedModel] = useState<"trueflex" | "kirana" | null>(null);
+  const [selectedModel, setSelectedModel] = useState(null);
   const [formData, setFormData] = useState({
     fullName: "",
     mobileNumber: "",
@@ -30,18 +30,23 @@ export const ReferralFormModal = ({ open, onOpenChange }: ReferralFormModalProps
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  const models = [
+    {
+      name: "TrueFlex",
+      description: "Flexible working hours",
+      value: "trueflex"
+    },
+    {
+      name: "Kirana",
+      description: "Local deliveries",
+      value: "kirana"
+    }
+  ]
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md mx-auto max-h-[90vh] overflow-y-auto">
-        <DialogHeader className="flex flex-row items-center gap-3 pb-4">
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            onClick={() => onOpenChange(false)}
-            className="p-1 h-8 w-8"
-          >
-            <ArrowLeft className="h-4 w-4" />
-          </Button>
+      <DialogContent className="w-11/12 rounded-md mx-auto max-h-[95vh] overflow-y-auto bg-white">
+        <DialogHeader className="flex flex-col items-center gap-3 pb-4">
           <div>
             <DialogTitle className="text-xl font-semibold">Refer a Friend</DialogTitle>
             <p className="text-sm text-muted-foreground">Fill in the details to make a referral</p>
@@ -57,7 +62,7 @@ export const ReferralFormModal = ({ open, onOpenChange }: ReferralFormModalProps
               </div>
               <h3 className="font-medium">Personal Information</h3>
             </div>
-            
+
             <div className="space-y-3">
               <div>
                 <Label htmlFor="fullName" className="text-sm font-medium">
@@ -71,7 +76,7 @@ export const ReferralFormModal = ({ open, onOpenChange }: ReferralFormModalProps
                   className="mt-1"
                 />
               </div>
-              
+
               <div>
                 <Label htmlFor="mobileNumber" className="text-sm font-medium">
                   Mobile Number <span className="text-red-500">*</span>
@@ -95,49 +100,30 @@ export const ReferralFormModal = ({ open, onOpenChange }: ReferralFormModalProps
               </div>
               <h3 className="font-medium">Work Preference</h3>
             </div>
-            
+
             <div>
               <Label className="text-sm font-medium">
                 Select Model <span className="text-red-500">*</span>
               </Label>
               <div className="grid grid-cols-2 gap-3 mt-2">
-                <Card 
-                  className={`p-3 cursor-pointer transition-all ${
-                    selectedModel === "trueflex" 
-                      ? "ring-2 ring-blue-600 bg-blue-50" 
-                      : "hover:bg-gray-50"
-                  }`}
-                  onClick={() => setSelectedModel("trueflex")}
+                {models?.map(item => <Card
+                  className={`p-3 cursor-pointer transition-all ${selectedModel === item?.value
+                    ? "ring-2 ring-blue-600 bg-blue-50"
+                    : "hover:bg-gray-50"
+                    }`}
+                  onClick={() => setSelectedModel(item?.value)}
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-medium text-sm">TrueFlex</p>
-                      <p className="text-xs text-muted-foreground">Flexible working hours</p>
+                      <p className="font-medium text-sm">{item?.name}</p>
+                      <p className="text-xs text-muted-foreground">{item?.description}</p>
                     </div>
-                    {selectedModel === "trueflex" && (
+                    {/* {selectedModel === item?.value && (
                       <Check className="h-4 w-4 text-blue-600" />
-                    )}
+                    )} */}
                   </div>
-                </Card>
-                
-                <Card 
-                  className={`p-3 cursor-pointer transition-all ${
-                    selectedModel === "kirana" 
-                      ? "ring-2 ring-blue-600 bg-blue-50" 
-                      : "hover:bg-gray-50"
-                  }`}
-                  onClick={() => setSelectedModel("kirana")}
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium text-sm">Kirana</p>
-                      <p className="text-xs text-muted-foreground">Local deliveries</p>
-                    </div>
-                    {selectedModel === "kirana" && (
-                      <Check className="h-4 w-4 text-blue-600" />
-                    )}
-                  </div>
-                </Card>
+                </Card>)}
+
               </div>
             </div>
           </div>
@@ -150,7 +136,7 @@ export const ReferralFormModal = ({ open, onOpenChange }: ReferralFormModalProps
               </div>
               <h3 className="font-medium">Document Details</h3>
             </div>
-            
+
             <div className="space-y-3">
               <div>
                 <Label htmlFor="panNumber" className="text-sm font-medium">
@@ -164,7 +150,7 @@ export const ReferralFormModal = ({ open, onOpenChange }: ReferralFormModalProps
                   className="mt-1"
                 />
               </div>
-              
+
               <div>
                 <Label htmlFor="aadhaarNumber" className="text-sm font-medium">
                   Aadhaar Number <span className="text-red-500">*</span>
@@ -182,18 +168,18 @@ export const ReferralFormModal = ({ open, onOpenChange }: ReferralFormModalProps
 
           {/* Action Buttons */}
           <div className="flex gap-3 pt-4">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="flex-1"
               onClick={() => onOpenChange(false)}
             >
               Cancel
             </Button>
-            <Button 
+            <Button
               className="flex-1 bg-blue-600 hover:bg-blue-700"
               onClick={handleSubmit}
             >
-              ✓ Submit Referral
+              Submit Referral
             </Button>
           </div>
         </div>
