@@ -265,7 +265,7 @@ const AdminAnalytics = () => {
       {/* Main Content */}
       <div className="relative z-10">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 flex items-center justify-between">
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 flex items-center justify-between sticky top-0">
           <div className="flex items-center gap-3">
             <Button
               variant="ghost"
@@ -285,18 +285,21 @@ const AdminAnalytics = () => {
               </div>
             </div>
           </div>
-          <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
-            <Download className="h-5 w-5" />
-          </Button>
-          <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
-            <Settings className="h-5 w-5" />
-          </Button>
+          <div>
+            <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
+              <Download className="h-5 w-5" />
+            </Button>
+            <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
+              <Settings className="h-5 w-5" />
+            </Button>
+
+          </div>
         </div>
 
 
 
-        <div className="p-4 space-y-6">
-          <div className="flex items-center justify-end gap-2">
+        <div className="p-4 space-y-6 container max-w-6xl">
+          <div className="flex items-center justify-end gap-2 -mb-3">
             <Select value={timeRange} onValueChange={setTimeRange}>
               <SelectTrigger className="max-w-40">
                 <Calendar className="h-4 w-4 mr-2" />
