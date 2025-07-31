@@ -1,3 +1,4 @@
+import { WishmasterDashboard } from "@/components/WishmasterDashboard";
 import AdminAnalytics from "@/pages/AdminAnalytics";
 import AdminIndex from "@/pages/AdminIndex";
 import AdminReferrals from "@/pages/AdminReferrals";
@@ -20,7 +21,7 @@ type RouteConfig = {
 export const routesConfig: RouteConfig = [
     { path: "/login", element: <Login /> },
     { path: "/", element: <Index /> },
-    { path: "/dashboard", element: <Index /> },
+    { path: "/dashboard", element: <WishmasterDashboard /> },
     { path: "/refer", element: <ReferEarn /> },
     { path: "/messages", element: <Messages /> },
     { path: "/rankings", element: <Rankings /> },
