@@ -241,7 +241,7 @@ export const AdminDashboard = () => {
       {/* Main Content */}
       <div className="relative z-10">
         {/* Header */}
-        <div className="bg-white border-b border-gray-200 p-4 flex items-center justify-between">
+        <div className="sticky top-0 bg-white border-b border-gray-200 p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Button
               variant="ghost"
@@ -271,7 +271,7 @@ export const AdminDashboard = () => {
         </div>
 
         {/* Stats Cards */}
-        <div className="p-6">
+        <div className="p-6 container max-w-6xl">
           <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-6">
             <Card className="bg-white border border-gray-200">
               <CardContent className="p-4 text-center">
@@ -348,7 +348,7 @@ export const AdminDashboard = () => {
               </div>
 
               <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger className="w-48 bg-white border-gray-300">
+                <SelectTrigger className="w-40 bg-white border-gray-300">
                   <SelectValue placeholder="All Status" />
                 </SelectTrigger>
                 <SelectContent className="bg-white border-gray-200 shadow-lg z-50">
@@ -362,7 +362,7 @@ export const AdminDashboard = () => {
               </Select>
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <Button
                 className="bg-green-600 hover:bg-green-700 text-white"
                 onClick={() => setCreateUserModalOpen(true)}

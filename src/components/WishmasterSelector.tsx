@@ -36,7 +36,7 @@ export const WishmasterSelector = ({
   const totalPotential = wishmasters.reduce((sum, wm) => sum + wm.potentialEarnings, 0);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 container mx-auto px-4 py-8 max-w-6xl">
       {/* Team Overview Banner */}
       <Card className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-purple-300">
         <CardContent className="p-4">

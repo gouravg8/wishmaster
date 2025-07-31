@@ -39,7 +39,7 @@ export const TeamLeadSelector = ({
   return (
     <div className="space-y-4">
       {/* System-wide Overview */}
-      <Card className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white border-emerald-300">
+      <Card className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-3 border-emerald-300 ">
         <CardContent className="p-4">
           <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
             <Crown className="h-5 w-5" />

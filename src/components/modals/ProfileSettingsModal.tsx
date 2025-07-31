@@ -44,7 +44,7 @@ export const ProfileSettingsModal = ({ open, onOpenChange }: ProfileSettingsModa
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white opacity-100">
+      <DialogContent className="max-w-2xl w-11/12 rounded-md max-h-[90vh] overflow-y-auto bg-white opacity-100">
         <DialogHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center">
@@ -52,7 +52,7 @@ export const ProfileSettingsModal = ({ open, onOpenChange }: ProfileSettingsModa
             </div>
             <div>
               <DialogTitle className="text-lg font-semibold">Profile Settings</DialogTitle>
-              <p className="text-sm text-muted-foreground">Manage your account information</p>
+              {/* <p className="text-sm text-muted-foreground">Manage your account information</p> */}
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -64,14 +64,6 @@ export const ProfileSettingsModal = ({ open, onOpenChange }: ProfileSettingsModa
             >
               <Edit className="h-4 w-4 mr-1" />
               Edit
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onOpenChange(false)}
-              className="text-gray-500 hover:text-gray-700"
-            >
-              <X className="h-4 w-4" />
             </Button>
           </div>
         </DialogHeader>
@@ -85,7 +77,7 @@ export const ProfileSettingsModal = ({ open, onOpenChange }: ProfileSettingsModa
               </div>
               <h3 className="font-semibold text-gray-900">Basic Information</h3>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="fullName" className="text-sm font-medium text-gray-700">
@@ -144,7 +136,7 @@ export const ProfileSettingsModal = ({ open, onOpenChange }: ProfileSettingsModa
               </div>
               <h3 className="font-semibold text-gray-900">Work Information</h3>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="profileId" className="text-sm font-medium text-gray-700">
@@ -224,7 +216,7 @@ export const ProfileSettingsModal = ({ open, onOpenChange }: ProfileSettingsModa
               </div>
               <h3 className="font-semibold text-gray-900">Document Information</h3>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="panNumber" className="text-sm font-medium text-gray-700">
@@ -276,20 +268,22 @@ export const ProfileSettingsModal = ({ open, onOpenChange }: ProfileSettingsModa
           <Separator />
 
           {/* Action Buttons */}
-          <div className="flex items-center justify-between pt-4">
+          <div className="flex items-center justify-between pt-4 gap-4">
             <Button
               variant="outline"
-              className="text-red-600 border-red-200 hover:bg-red-50 hover:border-red-300"
+              onClick={() => onOpenChange(false)}
+              className="flex-1"
+            >
+              Close
+            </Button>
+            <Button
+              variant="destructive"
+              className="flex-1"
               onClick={handleLogout}
             >
               Logout
             </Button>
-            <Button
-              onClick={() => onOpenChange(false)}
-              className="bg-gray-600 hover:bg-gray-700 text-white"
-            >
-              Close
-            </Button>
+
           </div>
         </div>
       </DialogContent>
