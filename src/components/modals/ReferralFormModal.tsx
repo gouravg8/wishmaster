@@ -1,34 +1,52 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, Check } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod";
+import { FormField, FormItem, FormLabel, FormControl, FormMessage, Form } from "../ui/form";
+import schema from "@/schema/inviteUserSchema";
+import { useQuery } from "@tanstack/react-query";
+import { createNewReferral, CreateNewReferralType } from "@/services/ReferalService";
 
 interface ReferralFormModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
-export const ReferralFormModal = ({ open, onOpenChange }: ReferralFormModalProps) => {
+const ReferralFormModal = ({ open, onOpenChange }: ReferralFormModalProps) => {
   const [selectedModel, setSelectedModel] = useState(null);
-  const [formData, setFormData] = useState({
-    fullName: "",
-    mobileNumber: "",
-    panNumber: "",
-    aadhaarNumber: ""
-  });
 
-  const handleSubmit = () => {
-    // Handle form submission logic here
-    console.log("Form submitted:", { ...formData, model: selectedModel });
-    onOpenChange(false);
+  const form = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
+    mode: "onChange",
+    defaultValues: {
+      name: "",
+      model: "trueflex",
+      phone: "",
+      pan_number: "",
+      aadhaar_number: "",
+    }
+  })
+
+  const { data, isError, isLoading, refetch } = useQuery({
+    queryKey: ["inviteUser"],
+    queryFn: async () => await createNewReferral(form.getValues() as CreateNewReferralType),
+    enabled: false
+  })
+
+  const onSubmit = (values: z.infer<typeof schema>) => {
+    refetch();
   };
 
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
+  useEffect(() => {
+    if (!isError) {
+      form.reset();
+      onOpenChange(false);
+    }
+  }, [isError])
 
   const models = [
     {
@@ -46,144 +64,162 @@ export const ReferralFormModal = ({ open, onOpenChange }: ReferralFormModalProps
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="w-11/12 rounded-md mx-auto max-h-[95vh] overflow-y-auto bg-white">
-        <DialogHeader className="flex flex-col items-center gap-3 pb-4">
-          <div>
-            <DialogTitle className="text-xl font-semibold">Refer a Friend</DialogTitle>
-            <p className="text-sm text-muted-foreground">Fill in the details to make a referral</p>
-          </div>
+        <DialogHeader className="flex flex-col items-center pb-4">
+          <DialogTitle className="text-xl font-semibold">Refer a Friend</DialogTitle>
+          <p className="text-sm text-muted-foreground">Fill in the details to make a referral</p>
         </DialogHeader>
 
-        <div className="space-y-6">
-          {/* Personal Information */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-blue-600 text-white text-sm flex items-center justify-center font-medium">
-                1
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            {/* Personal Information */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full bg-blue-600 text-white text-sm flex items-center justify-center font-medium">
+                  1
+                </div>
+                <h3 className="font-medium">Personal Information</h3>
               </div>
-              <h3 className="font-medium">Personal Information</h3>
+
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Full Name <span className="text-red-500">*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter full name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Mobile Number <span className="text-red-500">*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter 10-digit mobile number"
+                        {...field}
+                        type="tel"
+                        inputMode="numeric"
+                        maxLength={10}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
 
-            <div className="space-y-3">
-              <div>
-                <Label htmlFor="fullName" className="text-sm font-medium">
-                  Full Name <span className="text-red-500">*</span>
-                </Label>
-                <Input
-                  id="fullName"
-                  placeholder="Enter full name"
-                  value={formData.fullName}
-                  onChange={(e) => handleInputChange("fullName", e.target.value)}
-                  className="mt-1"
-                />
+            {/* Work Preference */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full bg-blue-600 text-white text-sm flex items-center justify-center font-medium">
+                  2
+                </div>
+                <h3 className="font-medium">Work Preference</h3>
               </div>
 
-              <div>
-                <Label htmlFor="mobileNumber" className="text-sm font-medium">
-                  Mobile Number <span className="text-red-500">*</span>
-                </Label>
-                <Input
-                  id="mobileNumber"
-                  placeholder="Enter 10-digit mobile number"
-                  value={formData.mobileNumber}
-                  onChange={(e) => handleInputChange("mobileNumber", e.target.value)}
-                  className="mt-1"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Work Preference */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-blue-600 text-white text-sm flex items-center justify-center font-medium">
-                2
-              </div>
-              <h3 className="font-medium">Work Preference</h3>
-            </div>
-
-            <div>
-              <Label className="text-sm font-medium">
-                Select Model <span className="text-red-500">*</span>
-              </Label>
-              <div className="grid grid-cols-2 gap-3 mt-2">
-                {models?.map(item => <Card
-                  className={`p-3 cursor-pointer transition-all ${selectedModel === item?.value
-                    ? "ring-2 ring-blue-600 bg-blue-50"
-                    : "hover:bg-gray-50"
-                    }`}
-                  onClick={() => setSelectedModel(item?.value)}
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium text-sm">{item?.name}</p>
-                      <p className="text-xs text-muted-foreground">{item?.description}</p>
-                    </div>
-                    {/* {selectedModel === item?.value && (
-                      <Check className="h-4 w-4 text-blue-600" />
-                    )} */}
-                  </div>
-                </Card>)}
-
-              </div>
-            </div>
-          </div>
-
-          {/* Document Details */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-blue-600 text-white text-sm flex items-center justify-center font-medium">
-                3
-              </div>
-              <h3 className="font-medium">Document Details</h3>
+              <FormField
+                control={form.control}
+                name="model"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Select Model <span className="text-red-500">*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <div className="grid grid-cols-2 gap-3 mt-2">
+                        {models.map((item) => (
+                          <Card
+                            key={item.value}
+                            className={`p-3 cursor-pointer transition-all ${field.value === item.value
+                              ? "ring-2 ring-blue-600 bg-blue-50"
+                              : "hover:bg-gray-50"
+                              }`}
+                            onClick={() => field.onChange(item.value)}
+                          >
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="font-medium text-sm">{item.name}</p>
+                                <p className="text-xs text-muted-foreground">{item.description}</p>
+                              </div>
+                            </div>
+                          </Card>
+                        ))}
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
 
-            <div className="space-y-3">
-              <div>
-                <Label htmlFor="panNumber" className="text-sm font-medium">
-                  PAN Number <span className="text-red-500">*</span>
-                </Label>
-                <Input
-                  id="panNumber"
-                  placeholder="ABCDE1234F"
-                  value={formData.panNumber}
-                  onChange={(e) => handleInputChange("panNumber", e.target.value)}
-                  className="mt-1"
-                />
+            {/* Document Details */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full bg-blue-600 text-white text-sm flex items-center justify-center font-medium">
+                  3
+                </div>
+                <h3 className="font-medium">Document Details</h3>
               </div>
 
-              <div>
-                <Label htmlFor="aadhaarNumber" className="text-sm font-medium">
-                  Aadhaar Number <span className="text-red-500">*</span>
-                </Label>
-                <Input
-                  id="aadhaarNumber"
-                  placeholder="1234-5678-9012"
-                  value={formData.aadhaarNumber}
-                  onChange={(e) => handleInputChange("aadhaarNumber", e.target.value)}
-                  className="mt-1"
-                />
-              </div>
+              <FormField
+                control={form.control}
+                name="pan_number"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      PAN Number <span className="text-red-500">*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder="ABCDE1234F" maxLength={10} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="aadhaar_number"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Aadhaar Number <span className="text-red-500">*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder="1234-5678-9012" maxLength={12} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
-          </div>
 
-          {/* Action Buttons */}
-          <div className="flex gap-3 pt-4">
-            <Button
-              variant="outline"
-              className="flex-1"
-              onClick={() => onOpenChange(false)}
-            >
-              Cancel
-            </Button>
-            <Button
-              className="flex-1 bg-blue-600 hover:bg-blue-700"
-              onClick={handleSubmit}
-            >
-              Submit Referral
-            </Button>
-          </div>
-        </div>
+            {/* Action Buttons */}
+            <div className="flex gap-3 pt-4">
+              <Button variant="outline" className="flex-1" type="button" onClick={() => onOpenChange(false)}>
+                Cancel
+              </Button>
+              <Button isLoading={isLoading} disabled={!form.formState.isValid} className="flex-1 bg-blue-600 hover:bg-blue-700" type="submit">
+                Submit Referral
+              </Button>
+            </div>
+          </form>
+        </Form>
+
       </DialogContent>
     </Dialog>
   );
 };
+
+export default ReferralFormModal;
