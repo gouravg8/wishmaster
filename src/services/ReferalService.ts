@@ -1,6 +1,6 @@
 import axios from "./axios";
 
-type CreateNewReferralType = {
+export type CreateNewReferralType = {
     name: string;
     model: "trueflex" | "kirana";
     phone: string;

@@ -246,7 +246,7 @@ export const AdminDashboard = () => {
             <Button
               variant="ghost"
               size="sm"
-              className="text-gray-600 hover:bg-gray-100"
+              className="text-gray-600 hover:bg-gray-100 hover:text-gray-800"
               onClick={() => setSidebarOpen(true)}
             >
               <Menu className="h-5 w-5" />

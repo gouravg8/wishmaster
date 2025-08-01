@@ -18,9 +18,10 @@ class HttpService {
         });
 
         ax.interceptors.request.use((config) => {
-            let user = JSON.parse(localStorage.getItem("smoothOpsUser"));
+            let user = JSON.parse(localStorage.getItem("wishmasterUser"));
+
             if (user?.token) {
-                config.headers.Authorization = "Bearer " + user.token;
+                config.headers.Authorization = `Bearer ${user.token}`;
             }
             return config;
         });

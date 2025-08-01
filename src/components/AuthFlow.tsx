@@ -7,8 +7,8 @@ import { Label } from "@/components/ui/label";
 import { HelpCircle, Smartphone } from "lucide-react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getOtp, validateOtp } from "@/services/AuthService";
-import { useToast } from "@/hooks/use-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 interface AuthFlowProps {
   onLoginSuccess: (role: "wishmaster" | "teamlead" | "admin") => void;
@@ -21,11 +21,10 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
 
   const navigate = useNavigate();
 
-  const { toast } = useToast();
   const queryClient = useQueryClient();
   const cancelTokenSourceRef = useRef<any>(null);
 
-  const { data, isLoading, error, refetch } = useQuery({
+  const { data, isLoading, error, isError, refetch } = useQuery({
     queryKey: ["getOtp"],
     queryFn: async () => {
       if (cancelTokenSourceRef.current) {
@@ -41,7 +40,7 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
   const { data: validateData, isLoading: validateLoadin, error: validateError, refetch: validateRefetch } = useQuery({
     queryKey: ["validateOtp"],
     queryFn: async () => await validateOtp({ phone: phoneNumber, otp }),
-    enabled: false
+    enabled: false,
   })
 
   const handleSendOtp = () => {
@@ -67,14 +66,10 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
         (error as any)?.response?.data?.message ||
         error?.message ||
         "An error occurred";
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: errorMessage,
-      });
+      toast.error(errorMessage)
       console.log("error", { error, errorMessage });
     }
-  }, [error, toast]);
+  }, [isError, error]);
 
   useEffect(() => {
     if (data && (data.status === 200 || data.statusText === 'OK')) {
@@ -94,20 +89,6 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
   const handleVerifyOtp = () => {
     if (otp.length === 6) {
       validateRefetch();
-      // Mock authentication logic
-      if (phoneNumber === "1000000000" && otp === "1234") {
-        console.log("Wishmaster login successful");
-        onLoginSuccess("wishmaster");
-      } else if (phoneNumber === "2000000000" && otp === "1234") {
-        console.log("Team Lead login successful");
-        onLoginSuccess("teamlead");
-      } else if (phoneNumber === "3000000000" && otp === "1234") {
-        console.log("Admin login successful");
-        onLoginSuccess("admin");
-      } else {
-        console.log("Invalid credentials");
-        // Handle invalid credentials here
-      }
     }
   };
 
@@ -121,7 +102,7 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex py-32 justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo and Title */}
         <div className="text-center mb-8">
