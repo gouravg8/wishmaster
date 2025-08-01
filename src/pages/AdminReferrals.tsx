@@ -291,7 +291,7 @@ const AdminReferrals = () => {
       {/* Main Content */}
       <div className="relative z-10">
         {/* Header */}
-        <div className="bg-gradient-to-r from-red-600 to-orange-600 text-white p-4 flex items-center justify-between">
+        <div className="sticky top-0 z-50 bg-gradient-to-r from-red-600 to-orange-600 text-white p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Button 
               variant="ghost" 
@@ -321,7 +321,7 @@ const AdminReferrals = () => {
           </div>
         </div>
 
-        <div className="p-4 space-y-6">
+        <div className="p-4 space-y-6 container max-w-6xl">
           {/* Team Lead Selector */}
           <TeamLeadSelector
             teamLeads={mockTeamLeads}
