@@ -9,7 +9,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Sonner richColors />
-      <RoutesConfig />
+        <RoutesConfig />
     </TooltipProvider>
   </QueryClientProvider>
 );

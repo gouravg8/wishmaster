@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { Label } from "@/components/ui/label";
 import { HelpCircle, Smartphone } from "lucide-react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getOtp, validateOtp } from "@/services/AuthService";
+import { useToast } from "@/hooks/use-toast";
+import { Link, useNavigate } from "react-router-dom";
 
 interface AuthFlowProps {
   onLoginSuccess: (role: "wishmaster" | "teamlead" | "admin") => void;
@@ -15,14 +19,81 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
 
+  const navigate = useNavigate();
+
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  const cancelTokenSourceRef = useRef<any>(null);
+
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: ["getOtp"],
+    queryFn: async () => {
+      if (cancelTokenSourceRef.current) {
+        cancelTokenSourceRef.current.abort();
+      }
+      cancelTokenSourceRef.current = new AbortController();
+      const res = await getOtp(phoneNumber, cancelTokenSourceRef.current.signal);
+      return res;
+    },
+    enabled: false,
+  });
+
+  const { data: validateData, isLoading: validateLoadin, error: validateError, refetch: validateRefetch } = useQuery({
+    queryKey: ["validateOtp"],
+    queryFn: async () => await validateOtp({ phone: phoneNumber, otp }),
+    enabled: false
+  })
+
   const handleSendOtp = () => {
+    if (Number(phoneNumber)) {
+      console.log({ type: typeof phoneNumber, phoneNumber, numPh: Number(phoneNumber) })
+    }
     if (phoneNumber.length === 10) {
-      setStep("otp");
+      refetch();
+      console.log("fetching the data");
     }
   };
 
+
+  useEffect(() => {
+    if (localStorage.getItem("wishmasterUser")) {
+      navigate("/dashboard");
+    }
+  }, [])
+
+  useEffect(() => {
+    if (error) {
+      const errorMessage =
+        (error as any)?.response?.data?.message ||
+        error?.message ||
+        "An error occurred";
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: errorMessage,
+      });
+      console.log("error", { error, errorMessage });
+    }
+  }, [error, toast]);
+
+  useEffect(() => {
+    if (data && (data.status === 200 || data.statusText === 'OK')) {
+      setStep("otp");
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (validateData && (validateData?.status === 200 || validateData?.statusText === 'OK')) {
+      localStorage.setItem("wishmasterUser", JSON.stringify(validateData?.data));
+      if (validateData?.data?.roles?.includes("LMA_WISHMASTER_USER")) {
+        navigate("/dashboard");
+      }
+    }
+  }, [validateData]);
+
   const handleVerifyOtp = () => {
-    if (otp.length === 4) {
+    if (otp.length === 6) {
+      validateRefetch();
       // Mock authentication logic
       if (phoneNumber === "1000000000" && otp === "1234") {
         console.log("Wishmaster login successful");
@@ -43,6 +114,10 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
   const handleChangeNumber = () => {
     setStep("phone");
     setOtp("");
+    if (cancelTokenSourceRef.current) {
+      cancelTokenSourceRef.current.abort();
+    }
+    queryClient.resetQueries({ queryKey: ["getOtp"] });
   };
 
   return (
@@ -55,8 +130,8 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
           </div>
           <h1 className="text-2xl font-bold text-foreground mb-2">Wishmasters Portal</h1>
           <p className="text-muted-foreground">
-            {step === "phone" 
-              ? "Enter your mobile number" 
+            {step === "phone"
+              ? "Enter your mobile number"
               : "Enter the OTP sent to your phone"
             }
           </p>
@@ -75,6 +150,8 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
                     <Input
                       id="mobile"
                       type="tel"
+                      pattern="[0-9]{10}"
+                      inputMode="numeric"
                       placeholder="Enter 10-digit mobile number"
                       value={phoneNumber}
                       onChange={(e) => setPhoneNumber(e.target.value)}
@@ -84,11 +161,12 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
                   </div>
                 </div>
 
-                <Button 
+                <Button
                   onClick={handleSendOtp}
-                  disabled={phoneNumber.length !== 10}
+                  disabled={phoneNumber.length !== 10 || isLoading}
                   className="w-full h-12 text-base font-medium"
                   size="lg"
+                  isLoading={isLoading}
                 >
                   Send OTP
                 </Button>
@@ -105,7 +183,7 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
 
                   <div className="flex justify-center">
                     <InputOTP
-                      maxLength={4}
+                      maxLength={6}
                       value={otp}
                       onChange={setOtp}
                     >
@@ -114,16 +192,19 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
                         <InputOTPSlot index={1} className="w-12 h-12 text-lg" />
                         <InputOTPSlot index={2} className="w-12 h-12 text-lg" />
                         <InputOTPSlot index={3} className="w-12 h-12 text-lg" />
+                        <InputOTPSlot index={4} className="w-12 h-12 text-lg" />
+                        <InputOTPSlot index={5} className="w-12 h-12 text-lg" />
                       </InputOTPGroup>
                     </InputOTP>
                   </div>
                 </div>
 
-                <Button 
+                <Button
                   onClick={handleVerifyOtp}
-                  disabled={otp.length !== 4}
+                  disabled={otp.length !== 6 || validateLoadin}
                   className="w-full h-12 text-base font-medium"
                   size="lg"
+                  isLoading={validateLoadin}
                 >
                   Verify OTP
                 </Button>
@@ -141,10 +222,7 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
             )}
 
             <div className="text-center pt-4 border-t border-border">
-              <Button variant="ghost" className="text-muted-foreground">
-                <HelpCircle className="h-4 w-4 mr-2" />
-                Need Help?
-              </Button>
+              Already have account? <Link to={"/login"} className="text-blue-600" >Login</Link>
             </div>
           </CardContent>
         </Card>
