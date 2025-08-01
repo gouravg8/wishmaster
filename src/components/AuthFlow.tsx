@@ -121,7 +121,7 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-primary/10 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo and Title */}
         <div className="text-center mb-8">
@@ -164,8 +164,7 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
                 <Button
                   onClick={handleSendOtp}
                   disabled={phoneNumber.length !== 10 || isLoading}
-                  className="w-full h-12 text-base font-medium"
-                  size="lg"
+                  className="w-full"
                   isLoading={isLoading}
                 >
                   Send OTP
@@ -202,8 +201,7 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
                 <Button
                   onClick={handleVerifyOtp}
                   disabled={otp.length !== 6 || validateLoadin}
-                  className="w-full h-12 text-base font-medium"
-                  size="lg"
+                  className="w-full"
                   isLoading={validateLoadin}
                 >
                   Verify OTP
@@ -221,7 +219,7 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
               </>
             )}
 
-            <div className="text-center pt-4 border-t border-border">
+            <div className="text-center text-sm pt-4 border-t border-border">
               Already have account? <Link to={"/login"} className="text-blue-600" >Login</Link>
             </div>
           </CardContent>

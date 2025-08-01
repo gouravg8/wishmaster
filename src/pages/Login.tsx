@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,7 +18,7 @@ const Login = () => {
   const handleLogin = (role: string) => {
     // Mock login logic - in real app, this would validate credentials
     console.log(`Logging in as ${role} with:`, loginData);
-    
+
     // Redirect based on role
     switch (role) {
       case "admin":
@@ -41,7 +41,7 @@ const Login = () => {
       title: "Wishmaster",
       description: "Refer friends and earn rewards",
       icon: Users,
-      color: "bg-blue-600",
+      color: "blue",
       bgColor: "bg-blue-50",
       textColor: "text-blue-700"
     },
@@ -50,7 +50,7 @@ const Login = () => {
       title: "Team Lead",
       description: "Manage your team performance",
       icon: Shield,
-      color: "bg-purple-600",
+      color: "purple",
       bgColor: "bg-purple-50",
       textColor: "text-purple-700"
     },
@@ -59,7 +59,7 @@ const Login = () => {
       title: "Admin",
       description: "System-wide management",
       icon: Crown,
-      color: "bg-red-600",
+      color: "red",
       bgColor: "bg-red-50",
       textColor: "text-red-700"
     }
@@ -98,11 +98,11 @@ const Login = () => {
                     type="email"
                     placeholder="Enter your email"
                     value={loginData.email}
-                    onChange={(e) => setLoginData({...loginData, email: e.target.value})}
+                    onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
                     className="mt-1"
                   />
                 </div>
-                
+
                 <div>
                   <Label htmlFor="password">Password</Label>
                   <div className="relative mt-1">
@@ -111,7 +111,7 @@ const Login = () => {
                       type={showPassword ? "text" : "password"}
                       placeholder="Enter your password"
                       value={loginData.password}
-                      onChange={(e) => setLoginData({...loginData, password: e.target.value})}
+                      onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
                       className="pr-10"
                     />
                     <Button
@@ -130,17 +130,15 @@ const Login = () => {
                   </div>
                 </div>
 
-                <Button 
+                <Button
                   className="w-full bg-blue-600 hover:bg-blue-700"
                   onClick={() => handleLogin("wishmaster")}
                 >
                   Sign In
                 </Button>
-                
-                <div className="text-center">
-                  <a href="#" className="text-sm text-blue-600 hover:underline">
-                    Forgot your password?
-                  </a>
+
+                <div className="text-center text-sm">
+                  Don't have accound? <Link to={"/"} className="text-blue-600">Sign up</Link>
                 </div>
               </CardContent>
             </Card>
@@ -149,24 +147,25 @@ const Login = () => {
           <TabsContent value="roles" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {roleCards.map((role) => (
-                <Card 
+                <Card
                   key={role.id}
-                  className={`${role.bgColor} border-2 hover:shadow-lg transition-all cursor-pointer group`}
+                  className={`bg-${role?.color}-50 border-2 hover:shadow-lg transition-all cursor-pointer group`}
                   onClick={() => handleLogin(role.id)}
                 >
                   <CardContent className="p-6 text-center">
-                    <div className={`w-16 h-16 ${role.color} rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}>
+                    <div className={`w-16 h-16 bg-${role.color}-600 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}>
                       <role.icon className="h-8 w-8 text-white" />
                     </div>
-                    <h3 className={`text-xl font-semibold ${role.textColor} mb-2`}>
+                    <h3 className={`text-xl font-semibold text-${role?.color}-400 mb-2`}>
                       {role.title}
                     </h3>
                     <p className="text-gray-600 mb-4">
                       {role.description}
                     </p>
-                    <Button 
-                      variant="outline" 
-                      className={`border-2 ${role.textColor} hover:${role.color} hover:text-white`}
+                    <Button
+                      variant="outline"
+                      // className={`border-2 ${role.textColor} hover:${role.color} hover:text-white`}
+                      className={`border-2 bg-${role?.color}-50 hover:bg-${role?.color}-800 hover:text-white`}
                     >
                       Access {role.title}
                     </Button>
@@ -174,10 +173,10 @@ const Login = () => {
                 </Card>
               ))}
             </div>
-            
+
             <div className="text-center">
               <p className="text-sm text-gray-500">
-                For demo purposes, click any role card to access that dashboard
+                Click any role card to access that dashboard
               </p>
             </div>
           </TabsContent>
