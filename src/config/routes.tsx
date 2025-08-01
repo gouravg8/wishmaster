@@ -1,4 +1,5 @@
 import { WishmasterDashboard } from "@/components/WishmasterDashboard";
+import AuthProvider from "@/hooks/userAuth";
 import AdminAnalytics from "@/pages/AdminAnalytics";
 import AdminIndex from "@/pages/AdminIndex";
 import AdminReferrals from "@/pages/AdminReferrals";
@@ -10,6 +11,7 @@ import Rankings from "@/pages/Rankings";
 import ReferEarn from "@/pages/ReferEarn";
 import TeamLeadIndex from "@/pages/TeamLeadIndex";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import PrivateRoute from "./PrivateRoute";
 
 
 type RouteConfig = {
@@ -21,16 +23,17 @@ type RouteConfig = {
 export const routesConfig: RouteConfig = [
     { path: "/login", element: <Login /> },
     { path: "/", element: <Index /> },
-    { path: "/dashboard", element: <WishmasterDashboard /> },
-    { path: "/refer", element: <ReferEarn /> },
-    { path: "/messages", element: <Messages /> },
-    { path: "/rankings", element: <Rankings /> },
-    { path: "/teamlead", element: <TeamLeadIndex /> },
-    { path: "/admin", element: <AdminIndex /> },
-    { path: "/admin/referrals", element: <AdminReferrals /> },
-    { path: "/admin/analytics", element: <AdminAnalytics /> },
+    { path: "/dashboard", element: <PrivateRoute children={<WishmasterDashboard />} /> },
+    { path: "/refer", element: <PrivateRoute children={<ReferEarn />} /> },
+    { path: "/messages", element: <PrivateRoute children={<Messages />} /> },
+    { path: "/rankings", element: <PrivateRoute children={<Rankings />} /> },
+    { path: "/teamlead", element: <PrivateRoute children={<TeamLeadIndex />} /> },
+    { path: "/admin", element: <PrivateRoute children={<AdminIndex />} /> },
+    { path: "/admin/referrals", element: <PrivateRoute children={<AdminReferrals />} /> },
+    { path: "/admin/analytics", element: <PrivateRoute children={<AdminAnalytics />} /> },
     { path: "*", element: <NotFound /> }
-]
+];
+
 
 const RoutesConfig = () => {
     // if(!userDetails) {
@@ -39,15 +42,17 @@ const RoutesConfig = () => {
 
     return (
         <BrowserRouter>
-            <Routes>
-                {routesConfig?.map(route => (
-                    <Route
-                        key={route.path}
-                        path={route.path}
-                        element={route.element}
-                    />
-                ))}
-            </Routes>
+            <AuthProvider>
+                <Routes>
+                    {routesConfig?.map(route => (
+                        <Route
+                            key={route.path}
+                            path={route.path}
+                            element={route.element}
+                        />
+                    ))}
+                </Routes>
+            </AuthProvider>
         </BrowserRouter>
     )
 }
