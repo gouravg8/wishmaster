@@ -58,7 +58,7 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
     if (localStorage.getItem("wishmasterUser")) {
       navigate("/dashboard");
     }
-  }, [])
+  }, [validateData?.status])
 
   useEffect(() => {
     if (error) {

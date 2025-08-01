@@ -17,7 +17,6 @@ interface ReferralFormModalProps {
 }
 
 const ReferralFormModal = ({ open, onOpenChange }: ReferralFormModalProps) => {
-  const [selectedModel, setSelectedModel] = useState(null);
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -33,12 +32,15 @@ const ReferralFormModal = ({ open, onOpenChange }: ReferralFormModalProps) => {
 
   const { data, isError, isLoading, refetch } = useQuery({
     queryKey: ["inviteUser"],
-    queryFn: async () => await createNewReferral(form.getValues() as CreateNewReferralType),
-    enabled: false
+    queryFn: async () =>
+      await createNewReferral(form.getValues() as CreateNewReferralType),
+    retry: false,
+    enabled: false,
   })
 
-  const onSubmit = (values: z.infer<typeof schema>) => {
+  const onSubmit = (values) => {
     refetch();
+    console.log({ values });
   };
 
   useEffect(() => {
@@ -210,7 +212,10 @@ const ReferralFormModal = ({ open, onOpenChange }: ReferralFormModalProps) => {
               <Button variant="outline" className="flex-1" type="button" onClick={() => onOpenChange(false)}>
                 Cancel
               </Button>
-              <Button isLoading={isLoading} disabled={!form.formState.isValid} className="flex-1 bg-blue-600 hover:bg-blue-700" type="submit">
+              <Button
+                isLoading={isLoading}
+                disabled={!form.formState.isValid || isLoading}
+                className="flex-1 bg-blue-600 hover:bg-blue-700" type="submit">
                 Submit Referral
               </Button>
             </div>

@@ -1,4 +1,5 @@
-import { Home, Users, MessageSquare, Trophy, BarChart3, FileText } from "lucide-react";
+import { useAuth } from "@/hooks/userAuth";
+import { Home, Users, MessageSquare, Trophy, BarChart3, FileText, LogOut } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const getNavigationItems = (isAdmin = false) => {
@@ -21,7 +22,7 @@ const getNavigationItems = (isAdmin = false) => {
       }
     ];
   }
-  
+
   return [
     {
       title: "Dashboard",
@@ -55,6 +56,7 @@ interface AppSidebarProps {
 export const AppSidebar = ({ open, onOpenChange, isAdmin = false }: AppSidebarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { handleLogout } = useAuth();
   const navigationItems = getNavigationItems(isAdmin);
 
   const handleNavigation = (url: string) => {
@@ -70,16 +72,21 @@ export const AppSidebar = ({ open, onOpenChange, isAdmin = false }: AppSidebarPr
             <button
               key={item.title}
               onClick={() => handleNavigation(item.url)}
-              className={`flex items-center gap-3 w-full p-3 rounded-lg transition-colors text-left ${
-                location.pathname === item.url
-                  ? 'bg-primary/10 text-primary font-medium' 
-                  : 'text-gray-700 hover:bg-gray-100'
-              }`}
+              className={`flex items-center gap-3 w-full p-3 rounded-lg transition-colors text-left ${location.pathname === item.url
+                ? 'bg-primary/10 text-primary font-medium'
+                : 'text-gray-700 hover:bg-gray-100'
+                }`}
             >
               <item.icon className="h-5 w-5" />
               <span className="text-base">{item.title}</span>
             </button>
           ))}
+          <button
+            onClick={handleLogout}
+            className={`flex items-center gap-3 w-full p-3 rounded-lg transition-colors text-left hover:bg-red-100 text-red-500`} >
+            <LogOut className="h-5 w-5" />
+            Log out
+          </button>
         </nav>
       </div>
     </div>

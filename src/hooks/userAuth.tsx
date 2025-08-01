@@ -25,11 +25,9 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("wishmasterUser")));
 
     const handleLogout = () => {
-        const pathname = location.pathname;
-
-        localStorage.removeItem("withmasterUser");
+        localStorage.removeItem("wishmasterUser");
         setUser(null);
-        navigate("/signin");
+        navigate("/login");
     }
 
 

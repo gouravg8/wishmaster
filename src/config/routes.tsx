@@ -36,10 +36,6 @@ export const routesConfig: RouteConfig = [
 
 
 const RoutesConfig = () => {
-    // if(!userDetails) {
-    //     return <Navigate to="/login" />;
-    // }
-
     return (
         <BrowserRouter>
             <AuthProvider>
