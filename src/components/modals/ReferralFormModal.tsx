@@ -209,7 +209,7 @@ const ReferralFormModal = ({ open, onOpenChange }: ReferralFormModalProps) => {
 
             {/* Action Buttons */}
             <div className="flex gap-3 pt-4">
-              <Button variant="outline" className="flex-1" type="button" onClick={() => onOpenChange(false)}>
+              <Button variant="outline" className="flex-1 hover:bg-transparent hover:text-gray-400" type="button" onClick={() => onOpenChange(false)}>
                 Cancel
               </Button>
               <Button

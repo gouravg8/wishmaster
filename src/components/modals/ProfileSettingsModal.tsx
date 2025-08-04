@@ -270,18 +270,18 @@ export const ProfileSettingsModal = ({ open, onOpenChange }: ProfileSettingsModa
           {/* Action Buttons */}
           <div className="flex items-center justify-between pt-4 gap-4">
             <Button
+              type="reset"
               variant="outline"
               onClick={() => onOpenChange(false)}
-              className="flex-1"
+              className="flex-1 hover:bg-transparent hover:text-gray-400"
             >
               Close
             </Button>
             <Button
-              variant="destructive"
               className="flex-1"
-              onClick={handleLogout}
+              disabled={!editMode}
             >
-              Logout
+              Submit
             </Button>
 
           </div>
