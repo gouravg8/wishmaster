@@ -21,7 +21,7 @@ type RouteConfig = {
 }[];
 
 export const routesConfig: RouteConfig = [
-    { path: "/login", element: <Login /> },
+    // { path: "/login", element: <Login /> },
     { path: "/", element: <Index /> },
     { path: "/dashboard", element: <PrivateRoute children={<WishmasterDashboard />} /> },
     { path: "/refer", element: <PrivateRoute children={<ReferEarn />} /> },
