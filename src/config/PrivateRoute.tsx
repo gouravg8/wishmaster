@@ -10,9 +10,9 @@ const PrivateRoute = ({ children }) => {
     const { user } = useAuth();
     console.log({ user });
 
-    if (pathname.startsWith("/admin") && !user?.roles?.includes("LMA_ADMIN")) {
-        return <Navigate to="/" />
-    }
+    // if (pathname.startsWith("/admin") && !user?.roles?.includes("LMA_ADMIN")) {
+    //     return <Navigate to="/" />
+    // }
 
     if (!user) {
         return <Navigate to="/" />;

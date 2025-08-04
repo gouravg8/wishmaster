@@ -108,7 +108,7 @@ const ReferEarn = () => {
               <div className="w-8 h-8 bg-primary-foreground text-primary rounded-lg flex items-center justify-center font-bold">
                 W
               </div>
-              <span className="text-lg font-semibold">Refer & Earn</span>
+              <span className="text-lg font-semibold">Wish Master</span>
             </div>
           </div>
           <div className="flex items-center gap-2">

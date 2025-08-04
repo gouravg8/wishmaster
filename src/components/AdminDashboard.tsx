@@ -241,7 +241,7 @@ export const AdminDashboard = () => {
       {/* Main Content */}
       <div className="relative z-10">
         {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-gray-200 p-4 flex items-center justify-between">
+        <div className="sticky top-0 z-40 bg-white border-b border-gray-200 p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Button
               variant="ghost"
@@ -255,7 +255,7 @@ export const AdminDashboard = () => {
               <div className="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center font-bold">
                 A
               </div>
-              <span className="text-xl font-semibold text-gray-900">Admin Portal</span>
+              <span className="text-xl font-semibold text-gray-900">Admin Dashboard</span>
             </div>
           </div>
           <div className="flex items-center gap-2">

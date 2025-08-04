@@ -151,7 +151,7 @@ const Messages = () => {
       {/* Main Content */}
       <div className="relative z-10">
         {/* Header */}
-        <div className="bg-primary text-primary-foreground p-4 flex items-center justify-between">
+        <div className="sticky top-0 z-40 bg-primary text-primary-foreground p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Button
               variant="ghost"
@@ -165,7 +165,7 @@ const Messages = () => {
               <div className="w-8 h-8 bg-primary-foreground text-primary rounded-lg flex items-center justify-center font-bold">
                 W
               </div>
-              <span className="text-lg font-semibold">Refer & Earn</span>
+              <span className="text-lg font-semibold">Wish Master</span>
             </div>
           </div>
           <div className="flex items-center gap-2">
