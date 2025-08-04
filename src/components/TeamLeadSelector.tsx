@@ -39,39 +39,40 @@ export const TeamLeadSelector = ({
   return (
     <div className="space-y-4">
       {/* System-wide Overview */}
+      <h3 className="text-lg font-semibold flex items-center gap-2">
+        <Crown className="h-5 w-5" />
+        System-wide Overview - Admin Control Center
+      </h3>
+
       <Card className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-3 border-emerald-300 ">
-        <CardContent className="p-4">
-          <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-            <Crown className="h-5 w-5" />
-            System-wide Overview - Admin Control Center
-          </h3>
+        <CardContent className="p-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="text-center">
               <div className="flex items-center justify-center mb-1">
-                <Building className="h-4 w-4 mr-1" />
+                <Building className="h-8 w-8 mr-2" />
+                <p className="text-2xl font-bold">{totalTeamLeads}</p>
               </div>
-              <p className="text-2xl font-bold">{totalTeamLeads}</p>
               <p className="text-xs opacity-80">Team Leads</p>
             </div>
             <div className="text-center">
               <div className="flex items-center justify-center mb-1">
-                <Users className="h-4 w-4 mr-1" />
+                <Users className="h-8 w-8 mr-2" />
+                <p className="text-2xl font-bold">{totalWishmasters}</p>
               </div>
-              <p className="text-2xl font-bold">{totalWishmasters}</p>
               <p className="text-xs opacity-80">Wishmasters</p>
             </div>
             <div className="text-center">
               <div className="flex items-center justify-center mb-1">
-                <Users className="h-4 w-4 mr-1" />
+                <Users className="h-8 w-8 mr-2" />
+                <p className="text-2xl font-bold">{totalReferrals}</p>
               </div>
-              <p className="text-2xl font-bold">{totalReferrals}</p>
               <p className="text-xs opacity-80">Total Referrals</p>
             </div>
             <div className="text-center">
               <div className="flex items-center justify-center mb-1">
-                <IndianRupee className="h-4 w-4 mr-1" />
+                <IndianRupee className="h-8 w-8 mr-2" />
+                <p className="text-2xl font-bold">{totalEarnings.toLocaleString()}</p>
               </div>
-              <p className="text-2xl font-bold">₹{totalEarnings.toLocaleString()}</p>
               <p className="text-xs opacity-80">System Earnings</p>
             </div>
           </div>
@@ -102,8 +103,8 @@ export const TeamLeadSelector = ({
                     onTeamLeadChange("");
                   }}
                   className={`flex-1 sm:flex-none py-2 ${showSystemWide
-                      ? "bg-emerald-600 hover:bg-emerald-700 text-white"
-                      : "border-emerald-300 hover:bg-white hover:text-emerald-600 bg-white text-emerald-600 "
+                    ? "bg-emerald-600 hover:bg-emerald-700 text-white"
+                    : "border-emerald-300 hover:bg-white hover:text-emerald-600 bg-white text-emerald-600 "
                     }`}
                 >
                   🌐 System-wide View

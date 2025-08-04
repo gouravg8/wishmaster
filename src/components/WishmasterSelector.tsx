@@ -36,41 +36,42 @@ export const WishmasterSelector = ({
   const totalPotential = wishmasters.reduce((sum, wm) => sum + wm.potentialEarnings, 0);
 
   return (
-    <div className="space-y-4 container mx-auto px-4 py-8 max-w-6xl">
+    <div className="space-y-4">
       {/* Team Overview Banner */}
+      <h3 className="text-lg font-semibold flex items-center gap-2">
+        <Users className="h-5 w-5" />
+        Team Overview - Performance Dashboard
+      </h3>
+
       <Card className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-purple-300">
-        <CardContent className="p-4">
-          <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-            <Users className="h-5 w-5" />
-            Team Overview - Performance Dashboard
-          </h3>
+        <CardContent className="p-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="text-center">
               <div className="flex items-center justify-center mb-1">
-                <Users className="h-4 w-4 mr-1" />
+                <Users className="h-8 w-8 mr-2" />
+                <p className="text-2xl font-bold">{totalWishmasters}</p>
               </div>
-              <p className="text-2xl font-bold">{totalWishmasters}</p>
               <p className="text-xs opacity-80">Wishmasters</p>
             </div>
             <div className="text-center">
               <div className="flex items-center justify-center mb-1">
-                <Users className="h-4 w-4 mr-1" />
+                <Users className="h-8 w-8 mr-2" />
+                <p className="text-2xl font-bold">{totalReferrals}</p>
               </div>
-              <p className="text-2xl font-bold">{totalReferrals}</p>
               <p className="text-xs opacity-80">Total Referrals</p>
             </div>
             <div className="text-center">
               <div className="flex items-center justify-center mb-1">
-                <IndianRupee className="h-4 w-4 mr-1" />
+                <IndianRupee className="h-8 w-8 mr-2" />
+                <p className="text-2xl font-bold">{totalEarnings.toLocaleString()}</p>
               </div>
-              <p className="text-2xl font-bold">₹{totalEarnings.toLocaleString()}</p>
               <p className="text-xs opacity-80">Total Earnings</p>
             </div>
             <div className="text-center">
               <div className="flex items-center justify-center mb-1">
-                <TrendingUp className="h-4 w-4 mr-1" />
+                <TrendingUp className="h-8 w-8 mr-2" />
+                <p className="text-2xl font-bold">{totalPotential.toLocaleString()}</p>
               </div>
-              <p className="text-2xl font-bold">₹{totalPotential.toLocaleString()}</p>
               <p className="text-xs opacity-80">Potential</p>
             </div>
           </div>
