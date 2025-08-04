@@ -34,6 +34,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useQuery } from "@tanstack/react-query";
+import { listReferrals } from "@/services/ConfigService";
 
 interface AdminReferral {
   id: string;
@@ -123,6 +125,8 @@ export const AdminDashboard = () => {
   const [selectedReferral, setSelectedReferral] = useState<AdminReferral | null>(null);
   const { toast } = useToast();
 
+  const [newReferral, setNewReferral] = useState([]);
+
   // Calculate stats
   const totalReferrals = referrals.length;
   const pendingReferrals = referrals.filter(r => !["completed"].includes(r.status)).length;
@@ -157,6 +161,16 @@ export const AdminDashboard = () => {
         return "bg-gray-100 text-gray-700 border-gray-200";
     }
   };
+
+  const { data, isError, error, isLoading, refetch } = useQuery({
+    queryKey: ["list-referrals"],
+    queryFn: async () => await listReferrals(),
+    retry: false,
+    // enabled: false
+  })
+
+  console.log({ data });
+
 
   const filteredReferrals = referrals.filter(referral => {
     const matchesSearch = referral.refereeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
