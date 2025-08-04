@@ -117,14 +117,14 @@ const Rankings = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background relative">
+    <div className="relative min-h-screen bg-background">
       {/* Sidebar */}
       <AppSidebar open={sidebarOpen} onOpenChange={setSidebarOpen} />
       
       {/* Overlay */}
       {sidebarOpen && (
         <div 
-          className="fixed inset-0 bg-black/50 z-40"
+          className="fixed inset-0 z-40 bg-black/50"
           onClick={() => setSidebarOpen(false)}
         />
       )}
@@ -132,7 +132,7 @@ const Rankings = () => {
       {/* Main Content */}
       <div className="relative z-10">
         {/* Header */}
-        <div className="sticky top-0 z-40 bg-primary text-primary-foreground p-4 flex items-center justify-between">
+        <div className="sticky top-0 z-40 flex items-center justify-between p-4 bg-primary text-primary-foreground">
           <div className="flex items-center gap-3">
             <Button 
               variant="ghost" 
@@ -140,10 +140,10 @@ const Rankings = () => {
               className="text-primary-foreground hover:bg-primary-foreground/10"
               onClick={() => setSidebarOpen(true)}
             >
-              <Menu className="h-5 w-5" />
+              <Menu className="w-5 h-5" />
             </Button>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary-foreground text-primary rounded-lg flex items-center justify-center font-bold">
+              <div className="flex items-center justify-center w-8 h-8 font-bold rounded-lg bg-primary-foreground text-primary">
                 W
               </div>
               <span className="text-lg font-semibold">Wish Master</span>
@@ -151,37 +151,37 @@ const Rankings = () => {
           </div>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" className="text-primary-foreground hover:bg-primary-foreground/10">
-              <Bell className="h-5 w-5" />
+              <Bell className="w-5 h-5" />
             </Button>
             <Button 
               variant="ghost" 
               size="sm" 
               className="text-primary-foreground hover:bg-primary-foreground/10"
             >
-              <Settings className="h-5 w-5" />
+              <Settings className="w-5 h-5" />
             </Button>
           </div>
         </div>
 
         {/* Rankings Content */}
-        <div className="container mx-auto px-4 py-6 max-w-6xl">
+        <div className="container max-w-6xl px-4 py-6 mx-auto">
           {/* Hero Section */}
-          <Card className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-8 mb-8 relative overflow-hidden">
+          <Card className="relative p-8 mb-8 overflow-hidden text-white bg-gradient-to-r from-purple-600 to-blue-600">
             <div className="relative z-10">
-              <h1 className="text-3xl font-bold mb-2">Referral Champions</h1>
+              <h1 className="mb-2 text-3xl font-bold">Referral Champions</h1>
               <p className="text-lg opacity-90">
                 See how you rank against other top performers
               </p>
             </div>
             <div className="absolute top-4 right-4">
-              <Trophy className="h-16 w-16 opacity-20" />
+              <Trophy className="w-16 h-16 opacity-20" />
             </div>
           </Card>
 
           {/* Top Performers */}
           <div className="mb-12">
-            <h2 className="text-2xl font-semibold mb-6 text-center">Top Performers</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto px-2">
+            <h2 className="mb-6 text-2xl font-semibold text-center">Top Performers</h2>
+            <div className="grid max-w-5xl grid-cols-1 gap-4 px-2 mx-auto sm:grid-cols-2 lg:grid-cols-3">
               {topPerformers.map((performer) => {
                 const styles = getRankStyles(performer.rank);
                 
@@ -207,9 +207,9 @@ const Rankings = () => {
                         </Badge>
                       </div>
                       
-                      <h3 className="font-bold text-base text-gray-800 mb-1">{performer.name}</h3>
-                      <p className="text-xs text-gray-600 mb-1">{performer.referrals} referrals</p>
-                      <p className="font-semibold text-green-600 text-sm">₹{performer.earnings.toLocaleString()}</p>
+                      <h3 className="mb-1 text-base font-bold text-gray-800">{performer.name}</h3>
+                      <p className="mb-1 text-xs text-gray-600">{performer.referrals} referrals</p>
+                      <p className="text-sm font-semibold text-green-600">₹{performer.earnings.toLocaleString()}</p>
                     </div>
                   </Card>
                 );
@@ -219,8 +219,8 @@ const Rankings = () => {
 
           {/* Complete Rankings */}
           <div className="mb-8">
-            <div className="text-center mb-6">
-              <h2 className="text-2xl font-semibold mb-2">Complete Rankings</h2>
+            <div className="mb-6 text-center">
+              <h2 className="mb-2 text-2xl font-semibold">Complete Rankings</h2>
               <p className="text-muted-foreground">Updated in real-time</p>
             </div>
 
@@ -233,11 +233,11 @@ const Rankings = () => {
                     return (
                       <div 
                         key={performer.rank}
-                        className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                        className="flex items-center justify-between p-3 transition-colors rounded-lg bg-gray-50 hover:bg-gray-100"
                       >
-                        <div className="flex items-center gap-3 flex-1 min-w-0">
-                          <div className="flex items-center gap-2 flex-shrink-0">
-                            <span className="text-lg font-bold text-gray-500 w-5 text-center">
+                        <div className="flex items-center flex-1 min-w-0 gap-3">
+                          <div className="flex items-center flex-shrink-0 gap-2">
+                            <span className="w-5 text-lg font-bold text-center text-gray-500">
                               {performer.rank}
                             </span>
                             <IconComponent className={`h-5 w-5 ${
@@ -245,23 +245,23 @@ const Rankings = () => {
                             }`} />
                           </div>
                           
-                          <div className="min-w-0 flex-1">
+                          <div className="flex-1 min-w-0">
                             <h3 className="font-semibold text-gray-900 truncate">{performer.name}</h3>
                             <div className="flex items-center gap-3 text-xs text-gray-600">
                               <span className="flex items-center gap-1">
-                                <Users className="h-3 w-3" />
+                                <Users className="w-3 h-3" />
                                 {performer.referrals} referrals
                               </span>
                               <span className="flex items-center gap-1">
-                                <Award className="h-3 w-3" />
+                                <Award className="w-3 h-3" />
                                 {performer.badges} badges
                               </span>
                             </div>
                           </div>
                         </div>
                         
-                        <div className="text-right flex-shrink-0">
-                          <p className="font-bold text-green-600 text-sm">₹ {performer.earnings.toLocaleString()}</p>
+                        <div className="flex-shrink-0 text-right">
+                          <p className="text-sm font-bold text-green-600">₹ {performer.earnings.toLocaleString()}</p>
                           <p className="text-xs text-gray-500">Total earned</p>
                         </div>
                       </div>
@@ -273,17 +273,17 @@ const Rankings = () => {
           </div>
 
           {/* Keep Climbing Section */}
-          <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 max-w-5xl mx-auto overflow-hidden">
+          <Card className="max-w-5xl mx-auto overflow-hidden border-blue-200 bg-gradient-to-r from-blue-50 to-purple-50">
             <div className="p-6 text-center">
               <div className="flex items-center justify-center gap-3 mb-4">
-                <Target className="h-8 w-8 text-blue-600" />
+                <Target className="w-8 h-8 text-blue-600" />
                 <h3 className="text-xl font-semibold text-gray-900">Keep Climbing!</h3>
               </div>
-              <p className="text-gray-600 mb-4">
+              <p className="mb-4 text-gray-600">
                 Make more referrals to climb up the leaderboard and earn exclusive rewards.
               </p>
-              <div className="bg-white rounded-lg p-4 inline-block">
-                <p className="text-sm text-gray-600 mb-1">Next Goal</p>
+              <div className="inline-block p-4 bg-white rounded-lg">
+                <p className="mb-1 text-sm text-gray-600">Next Goal</p>
                 <p className="text-lg font-bold text-blue-600">5 Referrals</p>
               </div>
             </div>
