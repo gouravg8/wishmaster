@@ -5,9 +5,9 @@ type ModelType = {
 }
 
 export const listReferrals = () => {
-    return axios.get("/api/v1/referral/configs");
+    return axios.get("/api/v1/referrals/configs");
 }
 
 export const listReferralByModel = (model: ModelType) => {
-    return axios.get(`/api/v1/referral/config/${model}`);
+    return axios.get(`/api/v1/referrals/config/${model}`);
 }

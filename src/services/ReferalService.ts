@@ -1,6 +1,6 @@
 import axios from "./axios";
 
-export type CreateNewReferralType = {
+export type ReferralType = {
     name: string;
     model: "trueflex" | "kirana";
     phone: string;
@@ -8,10 +8,22 @@ export type CreateNewReferralType = {
     aadhaar_number: string;
 }
 
-export const createNewReferral = (payload: CreateNewReferralType) => {
+export const createNewReferral = (payload: ReferralType) => {
     return axios.post("/api/v1/referral", payload);
 }
 
-export const getMyReferrals = (payload: CreateNewReferralType) => {
+export const getMyReferrals = (payload: ReferralType) => {
+    return axios.post("/api/v1/referrals/my", payload);
+}
+
+export const getSelfReferral = (payload: ReferralType) => {
     return axios.post("/api/v1/referral/my", payload);
+}
+
+export const getBadges = () => {
+    return axios.get("api/v1/referrals/my/badges");
+}
+
+export const getMyStats = (payload: ReferralType) => {
+    return axios.post("api/v1/referrals/my/stats", payload);
 }
