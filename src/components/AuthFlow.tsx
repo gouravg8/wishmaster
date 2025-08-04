@@ -37,12 +37,14 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
       const res = await getOtp(phoneNumber, cancelTokenSourceRef.current.signal);
       return res;
     },
+    retry: false,
     enabled: false,
   });
 
   const { data: validateData, isLoading: validateLoadin, error: validateError, refetch: validateRefetch } = useQuery({
     queryKey: ["validateOtp"],
     queryFn: async () => await validateOtp({ phone: phoneNumber, otp }),
+    retry: false,
     enabled: false,
   })
 
