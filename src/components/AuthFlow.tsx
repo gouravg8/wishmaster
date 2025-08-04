@@ -4,11 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { Label } from "@/components/ui/label";
-import { HelpCircle, Smartphone } from "lucide-react";
+import { Smartphone } from "lucide-react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getOtp, validateOtp } from "@/services/AuthService";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { useAuth } from "@/hooks/userAuth";
 
 interface AuthFlowProps {
   onLoginSuccess: (role: "wishmaster" | "teamlead" | "admin") => void;
@@ -18,6 +19,8 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
   const [step, setStep] = useState<"phone" | "otp">("phone");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
+
+  const { handleLogin } = useAuth();
 
   const navigate = useNavigate();
 
@@ -55,8 +58,17 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
 
 
   useEffect(() => {
-    if (localStorage.getItem("wishmasterUser")) {
-      navigate("/dashboard");
+    if (!validateData?.data) return;
+
+    handleLogin(validateData?.data);
+
+    const { roles } = validateData?.data;
+    switch (roles[0]) {
+      case "LMA_WISHMASTER_USER":
+        navigate("/dashboard");
+        break;
+      default:
+        navigate("/dashboard");
     }
   }, [validateData?.status])
 
@@ -119,7 +131,7 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
         </div>
 
         <Card className="shadow-xl border-0 bg-card/80 backdrop-blur-sm">
-          <CardContent className="p-6 space-y-6">
+          <CardContent className="px-6 py-10 space-y-6">
             {step === "phone" ? (
               <>
                 <div className="space-y-2">
@@ -200,9 +212,9 @@ export const AuthFlow = ({ onLoginSuccess }: AuthFlowProps) => {
               </>
             )}
 
-            <div className="text-center text-sm pt-4 border-t border-border">
+            {/* <div className="text-center text-sm pt-4 border-t border-border">
               Already have account? <Link to={"/login"} className="text-blue-600" >Login</Link>
-            </div>
+            </div> */}
           </CardContent>
         </Card>
       </div>

@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Gift, FileText, Download, Users, Truck, CheckCircle, Menu, Bell, Settings } from "lucide-react";
+import { Gift, FileText, Download, Users, Truck, CheckCircle, Menu, Bell, Settings, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import ReferralFormModal from "@/components/modals/ReferralFormModal";
 import { AppSidebar } from "@/components/AppSidebar";
+import { getMyReferrals } from "@/services/ReferalService";
 
 const ReferEarn = () => {
   const [showReferralModal, setShowReferralModal] = useState(false);
@@ -60,6 +61,23 @@ const ReferEarn = () => {
     "Trusted platform with millions of users"
   ];
 
+  const handleClick = async () => {
+    try {
+      const payload = {
+        "name": "Vishal",
+        "model": "trueflex" as "trueflex",
+        "phone": "9650510233",
+        "pan_number": "XXXXX2333X",
+        "aadhaar_number": "234567800000"
+      }
+      const res = await getMyReferrals(payload);
+      console.log({ res });
+
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+
   return (
     <div className="min-h-screen bg-background relative">
       {/* Sidebar */}
@@ -98,6 +116,7 @@ const ReferEarn = () => {
               variant="ghost"
               size="sm"
               className="text-primary-foreground hover:bg-primary-foreground/10"
+              onClick={handleClick}
             >
               <Settings className="h-5 w-5" />
             </Button>
@@ -116,8 +135,9 @@ const ReferEarn = () => {
                 <Button
                   className="bg-white text-blue-600 hover:bg-gray-100"
                   onClick={() => setShowReferralModal(true)}
+                  icon={<Plus />}
                 >
-                  + Refer a Friend Now
+                  Refer a Friend Now
                 </Button>
               </div>
               <div className="absolute top-4 right-4">
@@ -194,8 +214,9 @@ const ReferEarn = () => {
               size="lg"
               className="bg-blue-600 hover:bg-blue-700"
               onClick={() => setShowReferralModal(true)}
+              icon={<Plus />}
             >
-              + Make Your First Referral
+              Make Your First Referral
             </Button>
           </div>
 

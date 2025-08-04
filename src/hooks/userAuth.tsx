@@ -27,7 +27,7 @@ const AuthProvider = ({ children }) => {
     const handleLogout = () => {
         localStorage.removeItem("wishmasterUser");
         setUser(null);
-        navigate("/login");
+        navigate("/");
     }
 
 

@@ -39,7 +39,7 @@ export const ProfileSettingsModal = ({ open, onOpenChange }: ProfileSettingsModa
     // Handle logout logic here
     console.log("Logout clicked - redirecting to login");
     onOpenChange(false);
-    navigate("/login");
+    navigate("/");
   };
 
   return (
