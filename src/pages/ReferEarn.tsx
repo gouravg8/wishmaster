@@ -94,7 +94,7 @@ const ReferEarn = () => {
       {/* Main Content */}
       <div className="relative z-10">
         {/* Header */}
-        <div className="bg-primary text-primary-foreground p-4 flex items-center justify-between sticky top-0 z-50">
+        <div className="bg-primary text-primary-foreground p-4 flex items-center justify-between sticky top-0 z-40">
           <div className="flex items-center gap-3">
             <Button
               variant="ghost"
