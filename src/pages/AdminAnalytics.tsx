@@ -265,18 +265,18 @@ const AdminAnalytics = () => {
       {/* Main Content */}
       <div className="relative z-10">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 flex items-center justify-between sticky top-0 z-50">
+        <div className="sticky top-0 z-40 bg-white border-b border-gray-200 p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Button
               variant="ghost"
               size="sm"
-              className="text-white hover:bg-white/10"
+              className="text-gray-600 hover:bg-gray-100 hover:text-gray-800"
               onClick={() => setSidebarOpen(true)}
             >
               <Menu className="h-5 w-5" />
             </Button>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-white text-blue-600 rounded-lg flex items-center justify-center font-bold">
+              <div className="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center font-bold">
                 A
               </div>
               <div>

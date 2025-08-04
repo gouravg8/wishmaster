@@ -40,7 +40,7 @@ export const WishmasterSelector = ({
       {/* Team Overview Banner */}
       <h3 className="text-lg font-semibold flex items-center gap-2">
         <Users className="h-5 w-5" />
-        Team Overview - Performance Dashboard
+        Performance Dashboard
       </h3>
 
       <Card className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-purple-300">

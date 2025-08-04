@@ -39,9 +39,9 @@ export const TeamLeadSelector = ({
   return (
     <div className="space-y-4">
       {/* System-wide Overview */}
-      <h3 className="text-lg font-semibold flex items-center gap-2">
+      <h3 className="text-lg font-semibold flex align-middle items-center gap-2">
         <Crown className="h-5 w-5" />
-        System-wide Overview - Admin Control Center
+        Admin Control Center
       </h3>
 
       <Card className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-3 border-emerald-300 ">

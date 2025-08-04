@@ -362,26 +362,27 @@ export const AdminDashboard = () => {
               </Select>
             </div>
 
-            <div className="flex flex-wrap gap-2">
-              <Button
-                className="bg-green-600 hover:bg-green-700 text-white"
-                onClick={() => setCreateUserModalOpen(true)}
-                icon={<Plus className="h-4 w-4" />}
-              >
-                Create User
-              </Button>
+            <div className="flex flex-wrap gap-3">
               <Button
                 variant="outline"
-                className="border-blue-300 text-blue-600 hover:bg-blue-50"
+                className="border-gray-300 text-gray-600 hover:bg-blue-500 hover:text-gray-50 flex-1"
                 onClick={() => setBulkUploadModalOpen(true)}
               >
                 <Upload className="h-4 w-4 mr-2" />
                 Bulk Upload
               </Button>
-              <Button variant="outline" className="border-gray-300 text-gray-600 hover:bg-gray-50">
+              <Button variant="outline" className="border-gray-300 text-gray-600 hover:bg-blue-500 hover:text-gray-50 flex-1">
                 <Download className="h-4 w-4 mr-2" />
                 Export
               </Button>
+              <Button
+                className="bg-green-600 hover:bg-green-700 text-white flex-1"
+                onClick={() => setCreateUserModalOpen(true)}
+                icon={<Plus className="h-4 w-4" />}
+              >
+                Create User
+              </Button>
+
             </div>
           </div>
 

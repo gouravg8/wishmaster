@@ -26,12 +26,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { 
-  Users, 
-  Search, 
-  Filter, 
-  Eye, 
-  Edit, 
+import {
+  Users,
+  Search,
+  Filter,
+  Eye,
+  Edit,
   TrendingUp,
   Building,
   Menu,
@@ -97,7 +97,7 @@ const mockTeamLeads: TeamLead[] = [
     joiningDate: "Oct 2024"
   },
   {
-    id: "tl2", 
+    id: "tl2",
     name: "Kavita Singh",
     phone: "9000000002",
     wishmasterCount: 2,
@@ -225,7 +225,7 @@ const AdminReferrals = () => {
   const [selectedWishmaster, setSelectedWishmaster] = useState<string | null>(null);
   const [showSystemWide, setShowSystemWide] = useState(true);
   const [showAggregated, setShowAggregated] = useState(true);
-  
+
   // Modal states
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -235,15 +235,15 @@ const AdminReferrals = () => {
   // Filter referrals based on selections
   const filteredReferrals = mockAllReferrals.filter(referral => {
     const matchesSearch = referral.refereeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         referral.refereePhone.includes(searchTerm) ||
-                         referral.wishmasterName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         referral.teamLeadName.toLowerCase().includes(searchTerm.toLowerCase());
-    
+      referral.refereePhone.includes(searchTerm) ||
+      referral.wishmasterName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      referral.teamLeadName.toLowerCase().includes(searchTerm.toLowerCase());
+
     const matchesStatus = statusFilter === "all" || referral.status === statusFilter;
     const matchesRegion = regionFilter === "all" || referral.region === regionFilter;
     const matchesTeamLead = !selectedTeamLead || referral.teamLeadId === selectedTeamLead;
     const matchesWishmaster = !selectedWishmaster || referral.wishmasterId === selectedWishmaster;
-    
+
     return matchesSearch && matchesStatus && matchesRegion && matchesTeamLead && matchesWishmaster;
   });
 
@@ -256,7 +256,7 @@ const AdminReferrals = () => {
   const getStatusLabel = (status: string) => {
     const statusMap = {
       submitted: "Submitted",
-      app_downloaded: "App Downloaded", 
+      app_downloaded: "App Downloaded",
       onboarding: "Onboarding",
       first_delivery: "First Delivery",
       completed: "Completed"
@@ -268,7 +268,7 @@ const AdminReferrals = () => {
     const colorMap = {
       submitted: "bg-blue-100 text-blue-800",
       app_downloaded: "bg-purple-100 text-purple-800",
-      onboarding: "bg-yellow-100 text-yellow-800", 
+      onboarding: "bg-yellow-100 text-yellow-800",
       first_delivery: "bg-orange-100 text-orange-800",
       completed: "bg-green-100 text-green-800"
     };
@@ -279,30 +279,30 @@ const AdminReferrals = () => {
     <div className="min-h-screen bg-background relative">
       {/* Sidebar */}
       <AppSidebar open={sidebarOpen} onOpenChange={setSidebarOpen} isAdmin={true} />
-      
+
       {/* Overlay */}
       {sidebarOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 z-40"
           onClick={() => setSidebarOpen(false)}
         />
       )}
-      
+
       {/* Main Content */}
       <div className="relative z-10">
         {/* Header */}
-        <div className="sticky top-0 z-50 bg-gradient-to-r from-red-600 to-orange-600 text-white p-4 flex items-center justify-between">
+        <div className="sticky top-0 z-40 bg-white border-b border-gray-200 p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className="text-white hover:bg-white/10"
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-gray-600 hover:bg-gray-100 hover:text-gray-800"
               onClick={() => setSidebarOpen(true)}
             >
               <Menu className="h-5 w-5" />
             </Button>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-white text-red-600 rounded-lg flex items-center justify-center font-bold">
+              <div className="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center font-bold">
                 A
               </div>
               <div>
@@ -334,10 +334,10 @@ const AdminReferrals = () => {
           {/* Wishmaster Selector - only show when Team Lead is selected */}
           {selectedTeamLead && !showSystemWide && (
             <WishmasterSelector
-              wishmasters={mockWishmasters.filter(wm => 
+              wishmasters={mockWishmasters.filter(wm =>
                 // Filter wishmasters based on selected team lead
                 selectedTeamLead === "tl1" ? ["wm1", "wm2", "wm3"].includes(wm.id) :
-                selectedTeamLead === "tl2" ? ["wm4", "wm5"].includes(wm.id) : false
+                  selectedTeamLead === "tl2" ? ["wm4", "wm5"].includes(wm.id) : false
               )}
               selectedWishmaster={selectedWishmaster}
               onWishmasterChange={setSelectedWishmaster}
@@ -418,7 +418,7 @@ const AdminReferrals = () => {
                     className="pl-10"
                   />
                 </div>
-                
+
                 <Select value={statusFilter} onValueChange={setStatusFilter}>
                   <SelectTrigger>
                     <Filter className="h-4 w-4 mr-2" />
@@ -496,27 +496,27 @@ const AdminReferrals = () => {
                             </div>
                           </div>
                         </TableCell>
-                        
+
                         <TableCell>
                           <div>
                             <p className="font-medium text-sm">{referral.wishmasterName}</p>
                             <p className="text-xs text-muted-foreground">{referral.wishmasterPhone}</p>
                           </div>
                         </TableCell>
-                        
+
                         <TableCell>
                           <div>
                             <p className="font-medium text-sm">{referral.teamLeadName}</p>
                             <p className="text-xs text-muted-foreground">{referral.region}</p>
                           </div>
                         </TableCell>
-                        
+
                         <TableCell>
                           <Badge className={getStatusColor(referral.status)}>
                             {getStatusLabel(referral.status)}
                           </Badge>
                         </TableCell>
-                        
+
                         <TableCell>
                           <div className="space-y-1">
                             <div className="flex justify-between text-xs">
@@ -525,17 +525,17 @@ const AdminReferrals = () => {
                             <Progress value={referral.progress} className="h-2 w-16" />
                           </div>
                         </TableCell>
-                        
+
                         <TableCell>
                           <p className="font-medium text-green-600">
                             {referral.amount > 0 ? `₹${referral.amount.toLocaleString()}` : "-"}
                           </p>
                         </TableCell>
-                        
+
                         <TableCell>
                           <p className="text-sm">{referral.referralDate}</p>
                         </TableCell>
-                        
+
                         <TableCell>
                           <div className="flex items-center gap-1">
                             <Button
@@ -586,7 +586,7 @@ const AdminReferrals = () => {
             aadhaarNumber: selectedReferral.aadharNumber
           } : null}
         />
-        
+
         <ReferralEditModal
           open={editModalOpen}
           onOpenChange={setEditModalOpen}
@@ -607,7 +607,7 @@ const AdminReferrals = () => {
             setEditModalOpen(false);
           }}
         />
-        
+
         <ReferralDetailsModal
           open={detailsModalOpen}
           onOpenChange={setDetailsModalOpen}
