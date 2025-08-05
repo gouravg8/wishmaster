@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import ReferralFormModal from "@/components/modals/ReferralFormModal";
 import { AppSidebar } from "@/components/AppSidebar";
-import { getMyReferrals } from "@/services/ReferalService";
 
 const ReferEarn = () => {
   const [showReferralModal, setShowReferralModal] = useState(false);
@@ -61,32 +60,15 @@ const ReferEarn = () => {
     "Trusted platform with millions of users"
   ];
 
-  const handleClick = async () => {
-    try {
-      const payload = {
-        "name": "Vishal",
-        "model": "trueflex" as "trueflex",
-        "phone": "9650510233",
-        "pan_number": "XXXXX2333X",
-        "aadhaar_number": "234567800000"
-      }
-      const res = await getMyReferrals(payload);
-      console.log({ res });
-
-    } catch (error) {
-      console.log("error", error);
-    }
-  }
-
   return (
-    <div className="min-h-screen bg-background relative">
+    <div className="relative min-h-screen bg-background">
       {/* Sidebar */}
       <AppSidebar open={sidebarOpen} onOpenChange={setSidebarOpen} />
 
       {/* Overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40"
+          className="fixed inset-0 z-40 bg-black/50"
           onClick={() => setSidebarOpen(false)}
         />
       )}
@@ -94,7 +76,7 @@ const ReferEarn = () => {
       {/* Main Content */}
       <div className="relative z-10">
         {/* Header */}
-        <div className="bg-primary text-primary-foreground p-4 flex items-center justify-between sticky top-0 z-40">
+        <div className="sticky top-0 z-40 flex items-center justify-between p-4 bg-primary text-primary-foreground">
           <div className="flex items-center gap-3">
             <Button
               variant="ghost"
@@ -102,10 +84,10 @@ const ReferEarn = () => {
               className="text-primary-foreground hover:bg-primary-foreground/10"
               onClick={() => setSidebarOpen(true)}
             >
-              <Menu className="h-5 w-5" />
+              <Menu className="w-5 h-5" />
             </Button>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary-foreground text-primary rounded-lg flex items-center justify-center font-bold">
+              <div className="flex items-center justify-center w-8 h-8 font-bold rounded-lg bg-primary-foreground text-primary">
                 W
               </div>
               <span className="text-lg font-semibold">Wish Master</span>
@@ -116,24 +98,24 @@ const ReferEarn = () => {
               variant="ghost"
               size="sm"
               className="text-primary-foreground hover:bg-primary-foreground/10"
-              onClick={handleClick}
+              // onClick={handleClick}
             >
-              <Settings className="h-5 w-5" />
+              <Settings className="w-5 h-5" />
             </Button>
           </div>
         </div>
 
-        <div className="container mx-auto px-4 py-8 max-w-6xl">
+        <div className="container max-w-6xl px-4 py-8 mx-auto">
           {/* Hero Section */}
           <div className="mb-8">
-            <Card className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-8 relative overflow-hidden">
+            <Card className="relative p-8 overflow-hidden text-white bg-gradient-to-r from-blue-600 to-purple-600">
               <div className="relative z-10">
-                <h1 className="text-3xl font-bold mb-4">Refer & Earn ₹10,000</h1>
-                <p className="text-lg mb-6 opacity-90">
+                <h1 className="mb-4 text-3xl font-bold">Refer & Earn ₹10,000</h1>
+                <p className="mb-6 text-lg opacity-90">
                   Invite your friends to join as delivery partners and earn rewards for each successful referral.
                 </p>
                 <Button
-                  className="bg-white text-blue-600 hover:bg-gray-100"
+                  className="text-blue-600 bg-white hover:bg-gray-100"
                   onClick={() => setShowReferralModal(true)}
                   icon={<Plus />}
                 >
@@ -141,26 +123,26 @@ const ReferEarn = () => {
                 </Button>
               </div>
               <div className="absolute top-4 right-4">
-                <Gift className="h-16 w-16 opacity-20" />
+                <Gift className="w-16 h-16 opacity-20" />
               </div>
             </Card>
           </div>
 
           {/* 5-Step Process */}
           <div className="mb-12">
-            <h2 className="text-2xl font-semibold mb-6 text-center">5-Step Referral Process</h2>
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+            <h2 className="mb-6 text-2xl font-semibold text-center">5-Step Referral Process</h2>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
               {referralSteps.map((step, index) => (
                 <div key={index} className="text-center">
                   <div className={`w-16 h-16 ${step.bgColor} rounded-full flex items-center justify-center mx-auto mb-3`}>
                     <step.icon className={`h-8 w-8 ${step.iconColor}`} />
                   </div>
-                  <h3 className="font-medium text-sm mb-2">{step.title}</h3>
+                  <h3 className="mb-2 text-sm font-medium">{step.title}</h3>
                   <p className="text-xs text-muted-foreground">{step.description}</p>
                 </div>
               ))}
             </div>
-            <div className="mt-6 p-4 bg-blue-50 rounded-lg text-center">
+            <div className="p-4 mt-6 text-center rounded-lg bg-blue-50">
               <p className="text-sm text-blue-700">
                 <span className="font-medium">Track Progress:</span> Monitor each step in your dashboard and get notified when your referral moves to the next stage.
               </p>
@@ -168,18 +150,18 @@ const ReferEarn = () => {
           </div>
 
           {/* Earn More & Help Friends */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <div className="grid grid-cols-1 gap-8 mb-12 md:grid-cols-2">
             <Card className="p-6">
               <div className="flex items-center mb-4">
-                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
-                  <CheckCircle className="h-5 w-5 text-green-600" />
+                <div className="flex items-center justify-center w-8 h-8 mr-3 bg-green-100 rounded-full">
+                  <CheckCircle className="w-5 h-5 text-green-600" />
                 </div>
                 <h3 className="text-lg font-semibold">Earn More</h3>
               </div>
               <ul className="space-y-2">
                 {earnMorePoints.map((point, index) => (
                   <li key={index} className="flex items-start">
-                    <span className="text-green-600 mr-2">•</span>
+                    <span className="mr-2 text-green-600">•</span>
                     <span className="text-sm">{point}</span>
                   </li>
                 ))}
@@ -188,15 +170,15 @@ const ReferEarn = () => {
 
             <Card className="p-6">
               <div className="flex items-center mb-4">
-                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                  <Users className="h-5 w-5 text-blue-600" />
+                <div className="flex items-center justify-center w-8 h-8 mr-3 bg-blue-100 rounded-full">
+                  <Users className="w-5 h-5 text-blue-600" />
                 </div>
                 <h3 className="text-lg font-semibold">Help Friends</h3>
               </div>
               <ul className="space-y-2">
                 {helpFriendsPoints.map((point, index) => (
                   <li key={index} className="flex items-start">
-                    <span className="text-blue-600 mr-2">•</span>
+                    <span className="mr-2 text-blue-600">•</span>
                     <span className="text-sm">{point}</span>
                   </li>
                 ))}
@@ -206,8 +188,8 @@ const ReferEarn = () => {
 
           {/* CTA Section */}
           <div className="text-center">
-            <h3 className="text-xl font-semibold mb-2">Ready to Start Earning?</h3>
-            <p className="text-muted-foreground mb-6">
+            <h3 className="mb-2 text-xl font-semibold">Ready to Start Earning?</h3>
+            <p className="mb-6 text-muted-foreground">
               Refer your friends today and start earning rewards immediately.
             </p>
             <Button
