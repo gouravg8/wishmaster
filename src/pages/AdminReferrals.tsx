@@ -276,14 +276,14 @@ const AdminReferrals = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background relative">
+    <div className="relative min-h-screen bg-background">
       {/* Sidebar */}
       <AppSidebar open={sidebarOpen} onOpenChange={setSidebarOpen} isAdmin={true} />
 
       {/* Overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40"
+          className="fixed inset-0 z-40 bg-black/50"
           onClick={() => setSidebarOpen(false)}
         />
       )}
@@ -291,7 +291,7 @@ const AdminReferrals = () => {
       {/* Main Content */}
       <div className="relative z-10">
         {/* Header */}
-        <div className="sticky top-0 z-40 bg-white border-b border-gray-200 p-4 flex items-center justify-between">
+        <div className="sticky top-0 z-40 flex items-center justify-between p-4 bg-white border-b border-gray-200">
           <div className="flex items-center gap-3">
             <Button
               variant="ghost"
@@ -299,10 +299,10 @@ const AdminReferrals = () => {
               className="text-gray-600 hover:bg-gray-100 hover:text-gray-800"
               onClick={() => setSidebarOpen(true)}
             >
-              <Menu className="h-5 w-5" />
+              <Menu className="w-5 h-5" />
             </Button>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center font-bold">
+              <div className="flex items-center justify-center w-8 h-8 font-bold text-white bg-blue-600 rounded-lg">
                 A
               </div>
               <div>
@@ -313,15 +313,15 @@ const AdminReferrals = () => {
           </div>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
-              <Download className="h-5 w-5" />
+              <Download className="w-5 h-5" />
             </Button>
             <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
-              <Settings className="h-5 w-5" />
+              <Settings className="w-5 h-5" />
             </Button>
           </div>
         </div>
 
-        <div className="p-4 space-y-6 container max-w-6xl">
+        <div className="container max-w-6xl p-4 space-y-6">
           {/* Team Lead Selector */}
           <TeamLeadSelector
             teamLeads={mockTeamLeads}
@@ -347,70 +347,73 @@ const AdminReferrals = () => {
           )}
 
           {/* Stats Overview */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-blue-100 rounded-lg">
-                    <Users className="h-5 w-5 text-blue-600" />
-                  </div>
+              <CardContent className="px-4 pt-2 pb-4">
+                <div className="flex flex-col items-start justify-start gap-2">
                   <div>
-                    <p className="text-sm text-muted-foreground">Total Referrals</p>
-                    <p className="text-2xl font-bold text-blue-600">{totalReferrals}</p>
+                    <p className="font-semibold text text-muted-foreground">Total Referrals</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <div className="flex p-2 bg-blue-100 rounded-lg">
+                      <Users className="w-4 h-4 text-blue-600" />
+                    </div>
+                    <p className="text-xl font-bold text-blue-600">{totalReferrals}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-green-100 rounded-lg">
-                    <TrendingUp className="h-5 w-5 text-green-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Completed</p>
-                    <p className="text-2xl font-bold text-green-600">{completedReferrals}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-orange-100 rounded-lg">
-                    <Calendar className="h-5 w-5 text-orange-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Avg Progress</p>
-                    <p className="text-2xl font-bold text-orange-600">{Math.round(avgProgress)}%</p>
+              <CardContent className="px-4 pt-2 pb-4">
+                <div className="flex flex-col items-start justify-start gap-2">
+                  <p className="font-semibold text-muted-foreground">Completed</p>
+                  <div className="flex gap-2">
+                    <div className="flex p-2 bg-green-100 rounded-lg">
+                      <TrendingUp className="w-4 h-4 text-green-600" />
+                    </div>
+                    <p className="text-xl font-bold text-green-600">{completedReferrals}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-purple-100 rounded-lg">
-                    <Building className="h-5 w-5 text-purple-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Total Earnings</p>
-                    <p className="text-2xl font-bold text-purple-600">₹{totalEarnings.toLocaleString()}</p>
+              <CardContent className="px-4 pt-2 pb-4">
+                <div className="flex flex-col items-start justify-start gap-2">
+                  <p className="font-semibold text-muted-foreground">Avg Progress</p>
+                  <div className="flex gap-2">
+                    <div className="flex p-2 bg-orange-100 rounded-lg">
+                      <Calendar className="w-4 h-4 text-orange-600" />
+                    </div>
+                    <p className="text-xl font-bold text-orange-600">{Math.round(avgProgress)}%</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
+
+            <Card>
+              <CardContent className="px-4 pt-2 pb-4">
+                <div className="flex flex-col items-start justify-start gap-2">
+                  <p className="font-semibold text-muted-foreground">Total Earnings</p>
+                  <div className="flex gap-2">
+                    <div className="flex p-2 bg-purple-100 rounded-lg">
+                      <Building className="w-4 h-4 text-purple-600" />
+                    </div>
+                    <p className="text-xl font-bold text-purple-600">₹{totalEarnings.toLocaleString()}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
           </div>
 
           {/* Filters and Search */}
           <Card>
             <CardContent className="p-4">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                  <Search className="absolute w-4 h-4 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
                   <Input
                     placeholder="Search referrals, wishmasters, team leads..."
                     value={searchTerm}
@@ -421,7 +424,7 @@ const AdminReferrals = () => {
 
                 <Select value={statusFilter} onValueChange={setStatusFilter}>
                   <SelectTrigger>
-                    <Filter className="h-4 w-4 mr-2" />
+                    <Filter className="w-4 h-4 mr-2" />
                     <SelectValue placeholder="Filter by status" />
                   </SelectTrigger>
                   <SelectContent>
@@ -436,7 +439,7 @@ const AdminReferrals = () => {
 
                 <Select value={regionFilter} onValueChange={setRegionFilter}>
                   <SelectTrigger>
-                    <Building className="h-4 w-4 mr-2" />
+                    <Building className="w-4 h-4 mr-2" />
                     <SelectValue placeholder="Filter by region" />
                   </SelectTrigger>
                   <SelectContent>
@@ -461,8 +464,10 @@ const AdminReferrals = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Users className="h-5 w-5" />
-                Referrals Management ({filteredReferrals.length})
+                <Users className="w-5 h-5" />
+                <h3 className="text-xl">
+                  Referrals Management ({filteredReferrals.length})
+                </h3>
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
@@ -485,13 +490,13 @@ const AdminReferrals = () => {
                       <TableRow key={referral.id}>
                         <TableCell>
                           <div className="flex items-center gap-3">
-                            <Avatar className="h-8 w-8">
-                              <AvatarFallback className="bg-primary text-primary-foreground text-xs">
+                            <Avatar className="w-8 h-8">
+                              <AvatarFallback className="text-xs bg-primary text-primary-foreground">
                                 {referral.refereeName.split(' ').map(n => n[0]).join('')}
                               </AvatarFallback>
                             </Avatar>
                             <div>
-                              <p className="font-medium text-sm">{referral.refereeName}</p>
+                              <p className="text-sm font-medium">{referral.refereeName}</p>
                               <p className="text-xs text-muted-foreground">{referral.refereePhone}</p>
                             </div>
                           </div>
@@ -499,14 +504,14 @@ const AdminReferrals = () => {
 
                         <TableCell>
                           <div>
-                            <p className="font-medium text-sm">{referral.wishmasterName}</p>
+                            <p className="text-sm font-medium">{referral.wishmasterName}</p>
                             <p className="text-xs text-muted-foreground">{referral.wishmasterPhone}</p>
                           </div>
                         </TableCell>
 
                         <TableCell>
                           <div>
-                            <p className="font-medium text-sm">{referral.teamLeadName}</p>
+                            <p className="text-sm font-medium">{referral.teamLeadName}</p>
                             <p className="text-xs text-muted-foreground">{referral.region}</p>
                           </div>
                         </TableCell>
@@ -522,7 +527,7 @@ const AdminReferrals = () => {
                             <div className="flex justify-between text-xs">
                               <span>{referral.progress}%</span>
                             </div>
-                            <Progress value={referral.progress} className="h-2 w-16" />
+                            <Progress value={referral.progress} className="w-16 h-2" />
                           </div>
                         </TableCell>
 
@@ -546,7 +551,7 @@ const AdminReferrals = () => {
                                 setViewModalOpen(true);
                               }}
                             >
-                              <Eye className="h-4 w-4" />
+                              <Eye className="w-4 h-4" />
                             </Button>
                             <Button
                               variant="ghost"
@@ -556,7 +561,7 @@ const AdminReferrals = () => {
                                 setEditModalOpen(true);
                               }}
                             >
-                              <Edit className="h-4 w-4" />
+                              <Edit className="w-4 h-4" />
                             </Button>
                           </div>
                         </TableCell>
